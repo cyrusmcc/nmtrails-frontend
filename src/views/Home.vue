@@ -1,18 +1,29 @@
 <template>
   <div class="home">
-    <img alt="Vue logo" src="../assets/logo.png" />
-    <HelloWorld msg="Welcome to Your Vue.js App" />
+    <n-carousel show-arrow>
+      <img
+        class="carousel-img"
+        src="../assets/hiking.jpg"
+      />
+    </n-carousel>
   </div>
 </template>
 
 <script>
-// @ is an alias to /src
-import HelloWorld from "@/components/HelloWorld.vue";
+import { NCarousel } from "naive-ui";
 
 export default {
   name: "Home",
   components: {
-    HelloWorld,
+    NCarousel,
   },
 };
 </script>
+
+<style lang="scss" scoped>
+.carousel-img {
+  width: 100%;
+  height: 240px;
+  object-fit: cover;
+}
+</style>
