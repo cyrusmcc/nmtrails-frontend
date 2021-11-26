@@ -10,12 +10,14 @@
   "dependencies": {
     "axios": "^0.24.0",
     "core-js": "^3.6.5",
+    "leaflet": "^1.7.1",
     "node-modules": "^1.0.1",
     "vue": "^3.0.0",
     "vue-router": "^4.0.0-0",
     "vuex": "^4.0.0-0"
   },
   "devDependencies": {
+    "@vue-leaflet/vue-leaflet": "^0.6.1",
     "@vue/cli-plugin-babel": "~4.5.0",
     "@vue/cli-plugin-eslint": "~4.5.0",
     "@vue/cli-plugin-router": "~4.5.0",
@@ -30,8 +32,7 @@
     "naive-ui": "^2.21.1",
     "node-sass": "^4.12.0",
     "prettier": "^2.2.1",
-    "sass-loader": "^8.0.2",
-    "vfonts": "^0.1.0"
+    "sass-loader": "^8.0.2"
   },
   "eslintConfig": {
     "root": true,
