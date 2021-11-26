@@ -6,9 +6,13 @@ $screen-lg: 1115px;
 
 $shadow: 0 4px 8px 0 RGB(0 0 0/20%), 0 6px 20px 0 RGB(0 0 0/19%);
 $shadowLight: 0 4px 8px 0 RGB(0 0 0/3%), 0 6px 20px 0 RGB(0 0 0/2%);
+$shadowInset: inset 0px 0px 33px -7px rgba(18,17,19,0.73);
 
 @import url('https://fonts.googleapis.com/css2?family=Paytone+One&display=swap');
 $paytone: 'Paytone One', sans-serif;
+
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,200;0,400;1,200;1,400&display=swap');
+$poppins: 'Poppins', sans-serif;
 
 /* MIXINS */
 @mixin screen-md {
@@ -45,6 +49,7 @@ body {
     background-color: $primaryLight;
     position: relative;
     box-sizing: border-box;
+    font-family: $poppins;
 }
 
 h2 {
