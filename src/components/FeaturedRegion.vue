@@ -74,8 +74,8 @@ export default {
   align-items: center;
   position: relative;
   width: 100%;
-  height: 15rem;
-  margin-top: 20px;
+  height: 12rem;
+  margin-top: 30px;
 }
 
 #mapBackground {
