@@ -1,9 +1,13 @@
 <template>
-  <div></div>
+  <div class="container">
+    <trail-list />
+  </div>
 </template>
 
 <script>
+import TrailList from '@/components/TrailList.vue';
 export default {
+  components: { TrailList },
 name: "Trails",
 data() { 
   return {
