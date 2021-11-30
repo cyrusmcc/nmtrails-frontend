@@ -19,7 +19,7 @@
             <router-link :to="'/g/' + trail.id">{{ trail.name }}</router-link>
           </div>
           <div id="trailRating">
-            <n-rate color="#4fb233" allow-half readonly :default-value="3.5"></n-rate>
+            <n-rate color="#4fb233" allow-half readonly :default-value="trail.rating"></n-rate>
           </div>
           <ol id="trailTagList">
             <li v-for="(tag, index) in trail.post.tags" :key="index">
@@ -46,10 +46,12 @@ export default {
         {
           name: "Trail 1",
           id: 1,
+          rating: 5,
           post: { tags: [{ value: "tag1" }, { value: "tag2" }] },
         },
         {
           name: "Trail 2",
+          rating: 4.5,
           id: 2,
           post: { tags: [{ value: "tag1" }, { value: "tag2" }] },
         },
