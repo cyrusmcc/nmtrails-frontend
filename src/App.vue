@@ -1,8 +1,8 @@
 <template>
   <div class="container">
     <nav-bar>
-      <router-link to="/">Home</router-link>
-      <router-link to="/trails">Trails</router-link>
+      <router-link class="navLink" to="/">Home</router-link>
+      <router-link class="navLink" to="/trails">Trails</router-link>
     </nav-bar>
     <router-view id="routeView" />
   </div>
@@ -23,6 +23,11 @@ export default {
 </script>
 
 <style lang="scss">
+.navLink {
+  margin-top: 10px;
+  font-size: 1.1rem;
+}
+
 #app {
   height: fit-content;
   width: 100%;
