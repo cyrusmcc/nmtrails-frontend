@@ -92,5 +92,6 @@ export default {
 #map {
   max-width: 90%;
   max-height: 90%;
+  z-index: 0;
 }
 </style>

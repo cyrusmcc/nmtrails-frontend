@@ -2,7 +2,8 @@
   <div class="listContainer">
     <ol class="trailList">
       <li v-for="(trail, index) in trailArr" :key="index">
-        <div class="trailImgContainer">
+        <div class="trailContainer">
+          <div class="shadow"></div>
           <img src="@/assets/imgs/hiking.jpg" class="trailImg" alt="" />
           <!--
           <img
@@ -12,7 +13,22 @@
             onload="this.style.display='block'"
           />
           -->
+          <div class="trailInfoContainer">
+            <div class="trailName">
+              <router-link :to="'/t/' + trail.id">{{ trail.name }}</router-link>
+            </div>
+            <div class="trailRating">
+              <NRate color="#4fb233" readonly allow-half :default-value="trail.rating"/>
+            </div>
+            <ol class="trailTagList">
+              <li v-for="(tag, index) in trail.tags" :key="index">
+                <div class="trailTag">{{ tag.value }}</div>
+              </li>
+            </ol>
+          </div>
         </div>
+
+        <!--
         <div class="trailInfoContainer">
           <div class="trailTitle">
             <router-link :to="'/t/' + trail.id">{{
@@ -25,26 +41,33 @@
             </li>
           </ol>
         </div>
+        -->
       </li>
     </ol>
   </div>
 </template>
 
 <script>
+import { NRate } from 'naive-ui';
+
 export default {
   name: "TrailList",
-  components: {},
+  components: {
+    NRate,
+  },
   data() {
     return {
       trailArr: [
         {
           name: "Trail 1",
           id: 1,
+          rating: 4.5,
           tags: [{ value: "tag1" }, { value: "tag2" }],
         },
         {
           name: "Trail 2",
           id: 2,
+          rating: 2,
           tags: [{ value: "tag1" }, { value: "tag2" }],
         },
       ],
@@ -62,29 +85,39 @@ export default {
 }
 .trailList {
   width: 100%;
-  margin-top: 20px;
   padding: 0;
+  margin: 0;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
 }
-#trailList > li {
+.trailList > li {
   display: flex;
   flex-direction: row;
   align-items: center;
   list-style-type: none;
-  margin-bottom: 10px;
-  height: 150px;
-  width: 95%;
+  width: 100%;
   box-shadow: $shadowLight;
 }
-.trailImgContainer {
+.trailContainer {
+  position: relative;
   display: flex;
   align-items: center;
   justify-content: center;
-  height: 150px;
-  width: 150px;
+  overflow: hidden;
+  height: 200px;
+  width: 100%;
+}
+.shadow {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 2;
+  box-shadow: $shadowInset;
+  pointer-events: none;
 }
 .trailImg {
   height: inherit;
@@ -92,12 +125,15 @@ export default {
   object-fit: cover;
 }
 .trailInfoContainer {
-  height: 90%;
+  position: absolute;
+  height: fit-content;
+  bottom: 0;
+  left: 0;
+  margin: 10px;
   width: 100%;
   display: flex;
   flex-direction: column;
-  align-items: center;
-  justify-content: center;
+  align-items: flex-start;
 }
 .trailTagList {
   width: 95%;
@@ -109,22 +145,26 @@ export default {
   align-content: flex-start;
   column-gap: 5px;
 }
-#trailTagList > li {
+.trailTagList > li {
   list-style-type: none;
 }
 .trailTag {
   height: fit-content;
   width: fit-content;
-  background-color: lightblue;
-  padding: 3px;
+  background-color: $primaryLight;
+  padding: 1px 10px;
   font-size: 0.8rem;
   border-radius: 8px;
   margin-top: 10px;
+  box-shadow: $shadowLight;
 }
-.trailTitle {
-  text-align: center;
-  font-style: italic;
+.trailName {
+
+}
+.trailName > a {
   color: $primaryLight;
   font-style: italic;
+  text-shadow: black 0.1em 0.1em 0.2em;
+  font-size: 1.1rem;
 }
 </style>
