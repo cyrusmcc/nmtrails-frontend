@@ -21,11 +21,11 @@
           <div id="trailRating">
             <n-rate color="#4fb233" allow-half readonly :default-value="trail.rating"></n-rate>
           </div>
-          <ol id="trailTagList">
+          <!--<ol id="trailTagList">
             <li v-for="(tag, index) in trail.post.tags" :key="index">
               <div class="trailTag">{{ tag.value }}</div>
             </li>
-          </ol>
+          </ol>-->
         </div>
       </li>
     </ol>
@@ -34,6 +34,7 @@
 
 <script>
 import { NRate } from "naive-ui";
+import api from "../services/http-commons";
 
 export default {
   name: "PopularTrails",
@@ -42,22 +43,24 @@ export default {
   },
   data() {
     return {
-      popularTrails: [
-        {
-          name: "Trail 1",
-          id: 1,
-          rating: 5,
-          post: { tags: [{ value: "tag1" }, { value: "tag2" }] },
-        },
-        {
-          name: "Trail 2",
-          rating: 4.5,
-          id: 2,
-          post: { tags: [{ value: "tag1" }, { value: "tag2" }] },
-        },
-      ],
+      popularTrails: [],
     };
   },
+
+  methods: {
+    async fetchTrails() {
+      api.get(
+        "/trails/", { params : {pageSize : 2, page : 2}}
+      ).then(response => {
+        console.log(response)
+        this.popularTrails = response.data;
+      })
+    }
+  },
+
+  mounted() {
+    this.fetchTrails();
+  }
 };
 </script>
 
