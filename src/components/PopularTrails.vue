@@ -4,7 +4,7 @@
     <ol id="popularTrailList">
       <li v-for="(trail, index) in popularTrails" :key="index">
         <div id="trailImgContainer">
-          <img src="../assets/imgs/hiking.jpg" class="trailImg" alt="" />
+          <img v-bind:src="trail.imageUrl" class="trailImg" alt="" />
           <!--
           <img
             class="trailImg"
