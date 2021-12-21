@@ -1,7 +1,9 @@
 <template>
   <div class="container">
     <search-bar v-on:search="onSearch"></search-bar>
-    <trail-list />
+    <trail-list v-bind:trails="trails" 
+                v-bind:hasSearched="hasSearched" />
+    <a v-if="hasSearched" class="navLink" v-on:click="loadMore">Load More</a>
   </div>
 </template>
 
@@ -14,19 +16,41 @@ export default {
   components: { TrailList, SearchBar },
   name: "Trails",
   data() {
-    return {};
+    return {
+      trails: [],
+      hasSearched: false
+    };
   },
 
   methods: {
     onSearch(search) {
-      console.log(search);
       trails.get("/",
-        {params : {pageSize : 10, page : 1, name : search}}
+        {params : {pageSize : 10, page : 0, name : search}}
       ).then(response => {
-        console.log(response);
-        TrailList.trailArr = response.data;
+        this.trails = response.data;
+      });
+
+      this.search = search;
+      this.currPage = 0;
+      this.hasSearched = true;
+    },
+
+    loadMore() {
+      this.currPage++;
+      trails.get("/",
+        {params : {pageSize : 10, page : this.currPage, name : this.search}}
+      ).then(response => {
+        this.trails.push(...response.data);
       });
     }
+  },
+
+  mounted() {
+    window.setInterval(this.checkScroll, 500);
+  },
+
+  unmounted() {
+    window.removeEventListener('scroll', this.onScroll);
   }
 };
 </script>
@@ -35,5 +59,6 @@ export default {
 .container {
   @include flexCenter();
   row-gap: 10px;
+  overflow-y: scroll;
 }
 </style>

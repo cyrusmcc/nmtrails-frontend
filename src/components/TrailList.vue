@@ -1,10 +1,12 @@
 <template>
   <div class="listContainer">
+    <h2 v-if="!hasSearched">Press enter to search.</h2>
+    <h2 v-if="hasSearched && !trails.length">No results.</h2>
     <ol class="trailList">
-      <li v-for="(trail, index) in trailArr" :key="index">
+      <li v-for="(trail, index) in trails" :key="index">
         <div class="trailContainer">
           <div class="shadow"></div>
-          <img src="@/assets/imgs/hiking.jpg" class="trailImg" alt="" />
+          <img v-bind:src="trail.imageUrl" class="trailImg" alt="" />
           <!--
           <img
             class="trailImg"
@@ -55,11 +57,14 @@ export default {
   components: {
     NRate,
   },
+
+  props: ['trails', 'hasSearched'],
+
   data() {
-    return {
-      trailArr: [],
-    };
+    return {};
   },
+
+  mounted() { console.log(this.hasSearched) }
 };
 </script>
 
