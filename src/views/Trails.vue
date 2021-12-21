@@ -1,7 +1,8 @@
 <template>
   <div class="container">
     <search-bar v-on:search="onSearch"></search-bar>
-    <trail-list  v-bind:trails="trails"/>
+    <trail-list v-bind:trails="trails" 
+                v-bind:hasSearched="hasSearched" />
   </div>
 </template>
 
@@ -15,7 +16,8 @@ export default {
   name: "Trails",
   data() {
     return {
-      trails: []
+      trails: [],
+      hasSearched: false
     };
   },
 
@@ -24,10 +26,32 @@ export default {
       trails.get("/",
         {params : {pageSize : 10, page : 0, name : search}}
       ).then(response => {
-        console.log(response);
         this.trails = response.data;
       });
+
+      this.search = search;
+      this.currPage = 0;
+      this.hasSearched = true;
+    },
+
+    onScrolledToBottom() {
+      this.currPage++;
+
+      console.log('bottom');
+      trails.get("/",
+        {params : {pageSize : 10, page : this.currPage, name : this.search}}
+      ).then(response => {
+        this.trails.concat(response.data);
+      });
     }
+  },
+
+  mounted() {
+    window.setInterval(this.checkScroll, 500);
+  },
+
+  unmounted() {
+    window.removeEventListener('scroll', this.onScroll);
   }
 };
 </script>

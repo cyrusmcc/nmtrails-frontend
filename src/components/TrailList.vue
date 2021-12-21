@@ -1,5 +1,7 @@
 <template>
   <div class="listContainer">
+    <h2 v-if="!hasSearched">Press enter to search.</h2>
+    <h2 v-if="hasSearched && !trails.length">No results.</h2>
     <ol class="trailList">
       <li v-for="(trail, index) in trails" :key="index">
         <div class="trailContainer">
@@ -56,11 +58,13 @@ export default {
     NRate,
   },
 
-  props: ['trails'],
+  props: ['trails', 'hasSearched'],
 
   data() {
     return {};
   },
+
+  mounted() { console.log(this.hasSearched) }
 };
 </script>
 
