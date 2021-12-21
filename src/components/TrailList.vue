@@ -57,20 +57,7 @@ export default {
   },
   data() {
     return {
-      trailArr: [
-        {
-          name: "Trail 1",
-          id: 1,
-          rating: 4.5,
-          tags: [{ value: "tag1" }, { value: "tag2" }],
-        },
-        {
-          name: "Trail 2",
-          id: 2,
-          rating: 2,
-          tags: [{ value: "tag1" }, { value: "tag2" }],
-        },
-      ],
+      trailArr: [],
     };
   },
 };

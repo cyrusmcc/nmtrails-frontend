@@ -34,7 +34,7 @@
 
 <script>
 import { NRate } from "naive-ui";
-import api from "../services/http-commons";
+import { trails } from "../services/http-commons";
 
 export default {
   name: "PopularTrails",
@@ -49,12 +49,11 @@ export default {
 
   methods: {
     async fetchTrails() {
-      api.get(
-        "/trails/", { params : {pageSize : 2, page : 2}}
+      trails.get(
+        "/", { params : {pageSize : 2, page : 2}}
       ).then(response => {
-        console.log(response)
         this.popularTrails = response.data;
-      })
+      });
     }
   },
 
