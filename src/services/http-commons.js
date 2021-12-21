@@ -1,10 +1,17 @@
 import axios from "axios";
 
-const instance = axios.create({
-  baseURL: "http://localhost:8080/api",
+const trails = axios.create({
+  baseURL: process.env.VUE_APP_BACKEND_URL + "/api/trails",
   headers: {
     "Content-Type": "application/json",
   },
 });
 
-export default instance;
+const regions = axios.create({
+  baseURL: process.env.VUE_APP_BACKEND_URL + "/api/regions",
+  headers: {
+    "Content-Type" : "application/json"
+  }
+});
+
+export {trails, regions};
