@@ -1,7 +1,7 @@
 <template>
   <div class="container">
     <search-bar v-on:search="onSearch"></search-bar>
-    <trail-list />
+    <trail-list  v-bind:trails="trails"/>
   </div>
 </template>
 
@@ -14,17 +14,18 @@ export default {
   components: { TrailList, SearchBar },
   name: "Trails",
   data() {
-    return {};
+    return {
+      trails: []
+    };
   },
 
   methods: {
     onSearch(search) {
-      console.log(search);
       trails.get("/",
-        {params : {pageSize : 10, page : 1, name : search}}
+        {params : {pageSize : 10, page : 0, name : search}}
       ).then(response => {
         console.log(response);
-        TrailList.trailArr = response.data;
+        this.trails = response.data;
       });
     }
   }

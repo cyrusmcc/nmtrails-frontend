@@ -1,10 +1,10 @@
 <template>
   <div class="listContainer">
     <ol class="trailList">
-      <li v-for="(trail, index) in trailArr" :key="index">
+      <li v-for="(trail, index) in trails" :key="index">
         <div class="trailContainer">
           <div class="shadow"></div>
-          <img src="@/assets/imgs/hiking.jpg" class="trailImg" alt="" />
+          <img v-bind:src="trail.imageUrl" class="trailImg" alt="" />
           <!--
           <img
             class="trailImg"
@@ -55,10 +55,11 @@ export default {
   components: {
     NRate,
   },
+
+  props: ['trails'],
+
   data() {
-    return {
-      trailArr: [],
-    };
+    return {};
   },
 };
 </script>
