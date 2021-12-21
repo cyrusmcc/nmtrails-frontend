@@ -3,6 +3,7 @@
     <search-bar v-on:search="onSearch"></search-bar>
     <trail-list v-bind:trails="trails" 
                 v-bind:hasSearched="hasSearched" />
+    <a v-if="hasSearched" class="navLink" v-on:click="loadMore">Load More</a>
   </div>
 </template>
 
@@ -34,14 +35,12 @@ export default {
       this.hasSearched = true;
     },
 
-    onScrolledToBottom() {
+    loadMore() {
       this.currPage++;
-
-      console.log('bottom');
       trails.get("/",
         {params : {pageSize : 10, page : this.currPage, name : this.search}}
       ).then(response => {
-        this.trails.concat(response.data);
+        this.trails.push(...response.data);
       });
     }
   },
@@ -60,5 +59,6 @@ export default {
 .container {
   @include flexCenter();
   row-gap: 10px;
+  overflow-y: scroll;
 }
 </style>

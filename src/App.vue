@@ -35,5 +35,6 @@ export default {
 
 #routeView {
   padding-top: 45px;
+  overflow-y: hidden;
 }
 </style>
