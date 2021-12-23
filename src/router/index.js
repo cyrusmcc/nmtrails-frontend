@@ -1,6 +1,7 @@
 import { createRouter, createWebHistory } from "vue-router";
 import Home from "../views/Home.vue";
 import Trails from "../views/Trails.vue";
+import TrailPage from "../views/TrailPage.vue";
 
 const routes = [
   {
@@ -13,6 +14,11 @@ const routes = [
     name: "Trails",
     component: Trails,
   },
+  {
+    path: "/t/:id",
+    name: "Trail Page",
+    component: TrailPage
+  }
 ];
 
 const router = createRouter({
