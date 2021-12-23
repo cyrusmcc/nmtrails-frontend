@@ -19,6 +19,11 @@ class TrailService {
         return response.data;
       });
   }
+  getTrailById(id) {
+    return api
+      .get(TRAIL_URL + "/" + id)
+      .then((response) => response.data);
+  }
 }
 
 export default new TrailService();
