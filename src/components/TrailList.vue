@@ -20,7 +20,12 @@
               <router-link :to="'/t/' + trail.id">{{ trail.name }}</router-link>
             </div>
             <div class="trailRating">
-              <NRate color="#4fb233" readonly allow-half :default-value="trail.rating"/>
+              <NRate
+                color="#4fb233"
+                readonly
+                allow-half
+                :default-value="trail.rating"
+              />
             </div>
             <ol class="trailTagList">
               <li v-for="(tag, index) in trail.tags" :key="index">
@@ -50,7 +55,9 @@
 </template>
 
 <script>
-import { NRate } from 'naive-ui';
+import { NRate } from "naive-ui";
+//import trailService from "../services/trail.service";
+
 
 export default {
   name: "TrailList",
@@ -58,13 +65,15 @@ export default {
     NRate,
   },
 
-  props: ['trails', 'hasSearched'],
+  props: ["trails", "hasSearched"],
 
   data() {
     return {};
   },
 
-  mounted() { console.log(this.hasSearched) }
+  mounted() {
+    console.log(this.hasSearched);
+  },
 };
 </script>
 
@@ -151,7 +160,6 @@ export default {
   box-shadow: $shadowLight;
 }
 .trailName {
-
 }
 .trailName > a {
   color: $primaryLight;

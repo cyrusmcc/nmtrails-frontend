@@ -1,10 +1,18 @@
 <template>
   <div class="searchBar">
-    <input class="searchBarInput" placeholder="Search trails"
-           v-model="content" v-on:keyup.enter="$emit('search', content)" />
+    <input
+      class="searchBarInput"
+      placeholder="Search trails"
+      v-model="content"
+      v-on:keyup.enter="$emit('search', content)"
+    />
     <div class="searchBarButton">
       <div class="searchBarIcon">
-        <img class="magGlassImg" src="@/assets/imgs/magGlassDark.svg" alt="search icon">
+        <img
+          class="magGlassImg"
+          src="@/assets/imgs/magGlassDark.svg"
+          alt="search icon"
+        />
       </div>
     </div>
   </div>

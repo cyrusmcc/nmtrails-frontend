@@ -1,8 +1,10 @@
 import { createStore } from "vuex";
+import { trail } from "./trail.module";
 
-export default createStore({
-  state: {},
-  mutations: {},
-  actions: {},
-  modules: {},
+const store = createStore({
+  modules: {
+    trail
+  },
 });
+
+export default store;
