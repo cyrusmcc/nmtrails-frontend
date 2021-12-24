@@ -2,6 +2,10 @@ import { createRouter, createWebHistory } from "vue-router";
 import Home from "../views/Home.vue";
 import Trails from "../views/Trails.vue";
 
+// lazy loaded pages
+const Login = () => import("../views/Login.vue");
+const Register = () => import("../views/Register.vue");
+
 const routes = [
   {
     path: "/",
@@ -12,6 +16,24 @@ const routes = [
     path: "/trails",
     name: "Trails",
     component: Trails,
+  },
+  {
+    path: "/login:loginFlash(.*)",
+    name: "Login",
+    meta: {
+      hideNav: true,
+    },
+
+    component: Login,
+  },
+  {
+    path: "/register",
+    name: "Register",
+    meta: {
+      hideNav: true,
+    },
+
+    component: Register,
   },
 ];
 

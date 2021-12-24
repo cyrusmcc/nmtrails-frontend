@@ -1,18 +1,20 @@
-$primaryLight: #F4F4F3;
+$primaryLight: #f4f4f3;
 $primaryDark: #121113;
 
 $screen-md: 610px;
 $screen-lg: 1115px;
 
-$shadow: 0 4px 8px 0 RGB(0 0 0/20%), 0 6px 20px 0 RGB(0 0 0/19%);
+$highlightOne: #004da2;
+
+$shadow: 0 4px 8px 0 RGB(0 0 0/5%), 0 6px 20px 0 RGB(0 0 0/14%);
 $shadowLight: 0 4px 8px 0 RGB(0 0 0/3%), 0 6px 20px 0 RGB(0 0 0/2%);
-$shadowInset: inset 0px 0px 33px -7px rgba(18,17,19,0.73);
+$shadowInset: inset 0px 0px 33px -7px rgba(18, 17, 19, 0.73);
 
-@import url('https://fonts.googleapis.com/css2?family=Paytone+One&display=swap');
-$paytone: 'Paytone One', sans-serif;
+@import url("https://fonts.googleapis.com/css2?family=Paytone+One&display=swap");
+$paytone: "Paytone One", sans-serif;
 
-@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,200;0,400;1,200;1,400&display=swap');
-$poppins: 'Poppins', sans-serif;
+@import url("https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,200;0,400;1,200;1,400&display=swap");
+$poppins: "Poppins", sans-serif;
 
 /* MIXINS */
 @mixin screen-md {
@@ -80,7 +82,8 @@ table {
     border: 1px solid $primaryLight;
 }
 
-td, th {
+td,
+th {
     border: 1px solid $primaryLight;
     padding: 5px;
 }
@@ -118,17 +121,16 @@ td, th {
     border: none;
     line-height: 2rem;
     width: 100%;
-    //border: medium solid $accentDark;
+    border: solid 2px $primaryDark;
     border-radius: 4px;
 }
 
 .alert,
 .error-feedback {
     box-sizing: border-box;
-    //background: $accentDark;
+    background: $primaryDark;
     color: $primaryLight;
     padding: 5px;
-    /* align-self: center; */
     margin-top: 10px;
     margin-bottom: 10px;
     border-radius: 4px;
@@ -141,3 +143,31 @@ td, th {
     flex-direction: column;
     gap: 1rem;
 }
+
+.button {
+    background-color: $primaryDark;
+    color: $primaryLight;
+    border-radius: 10px;
+    font-size: 1rem;
+    border: thin solid $primaryDark;
+    line-height: 2rem;
+    margin-bottom: 20px;
+    padding: 0 3px 0 3px;
+    width: fit-content;
+    cursor: pointer;
+    box-shadow: $shadowLight;
+}
+
+.nmtrail-title {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    text-align: center;
+    height: 3rem;
+    width: 100%;
+    position: absolute;
+    top: 0;
+    font-size: 1.1rem;
+    color: $primaryDark;
+    font-family: $paytone;
+  }
