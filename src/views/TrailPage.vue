@@ -2,14 +2,17 @@
     <div class="container">
         <h1>{{ trail.name }}</h1>
         <img v-bind:src="trail.imageUrl" class="trailImg"/>
+        <observation-list v-bind:trail="trail"></observation-list>
     </div>
 </template>
 
 <script>
 import trailService from "../services/trail.service";
+import ObservationList from "../components/ObservationList.vue";
 
 export default {
     name: "TrailPage",
+    components: { ObservationList },
     
     data() {
         return {
@@ -29,10 +32,14 @@ export default {
 </script>
 
 <style scoped lang="scss">
+h1 {
+  overflow: visible;
+}
+
 .container {
   @include flexCenter();
+  text-align: center;
   row-gap: 10px;
-  overflow-y: scroll;
 }
 
 .trailImg {
