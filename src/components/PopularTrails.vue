@@ -5,21 +5,18 @@
       <li v-for="(trail, index) in popularTrails" :key="index">
         <div id="trailImgContainer">
           <img v-bind:src="trail.imageUrl" class="trailImg" alt="" />
-          <!--
-          <img
-            class="trailImg"
-            :src="getImgFromTrailId(index, trail.id)"
-            alt="blog post cover image"
-            onload="this.style.display='block'"
-          />
-          -->
         </div>
         <div id="trailInfoContainer">
           <div id="trailName">
             <router-link :to="'/t/' + trail.id">{{ trail.name }}</router-link>
           </div>
           <div id="trailRating">
-            <n-rate color="#4fb233" allow-half readonly :default-value="trail.rating"></n-rate>
+            <n-rate
+              color="#4fb233"
+              allow-half
+              readonly
+              :default-value="trail.rating"
+            ></n-rate>
           </div>
           <!--<ol id="trailTagList">
             <li v-for="(tag, index) in trail.post.tags" :key="index">
@@ -34,7 +31,7 @@
 
 <script>
 import { NRate } from "naive-ui";
-import { trails } from "../services/http-commons";
+import trailService from "../services/trail.service";
 
 export default {
   name: "PopularTrails",
@@ -47,19 +44,23 @@ export default {
     };
   },
 
-  methods: {
-    async fetchTrails() {
-      trails.get(
-        "/", { params : {pageSize : 2, page : 2}}
-      ).then(response => {
-        this.popularTrails = response.data;
-      });
-    }
+  computed: {
+    trailsArr() {
+      return this.$store.getters["trail/getTrails"];
+    },
   },
 
   mounted() {
-    this.fetchTrails();
-  }
+    if (this.popularTrails.length === 0) {
+      const trails = async () => {
+        const arr = await trailService.getTrails();
+        for (let i = 0; i < arr.length; i++) {
+          this.popularTrails.push(arr[i]);
+        }
+      };
+      trails();
+    }
+  },
 };
 </script>
 
