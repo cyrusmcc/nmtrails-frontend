@@ -6,7 +6,7 @@
 </template>
 
 <script>
-import { trails } from "../services/http-commons";
+import trailService from "../services/trail.service";
 
 export default {
     name: "TrailPage",
@@ -18,11 +18,12 @@ export default {
     },
 
     mounted() {
-        trails.get(
-            "/" + this.$route.params.id
-        ).then(response => {
-            this.trail = response.data
-        });
+        const getTrails = async () => {
+            this.trail = await trailService.getTrailById(
+                this.$route.params.id
+            );
+        }
+        getTrails();
     }
 };
 </script>
