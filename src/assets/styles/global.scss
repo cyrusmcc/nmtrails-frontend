@@ -4,6 +4,8 @@ $primaryDark: #121113;
 $screen-md: 610px;
 $screen-lg: 1115px;
 
+$highlightOne: #004da2;
+
 $shadow: 0 4px 8px 0 RGB(0 0 0/20%), 0 6px 20px 0 RGB(0 0 0/19%);
 $shadowLight: 0 4px 8px 0 RGB(0 0 0/3%), 0 6px 20px 0 RGB(0 0 0/2%);
 $shadowInset: inset 0px 0px 33px -7px rgba(18,17,19,0.73);
@@ -118,14 +120,14 @@ td, th {
     border: none;
     line-height: 2rem;
     width: 100%;
-    //border: medium solid $accentDark;
+    border: solid 2px $primaryDark;
     border-radius: 4px;
 }
 
 .alert,
 .error-feedback {
     box-sizing: border-box;
-    //background: $accentDark;
+    background: $primaryDark;
     color: $primaryLight;
     padding: 5px;
     /* align-self: center; */

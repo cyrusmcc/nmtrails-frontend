@@ -12,9 +12,11 @@
     "core-js": "^3.6.5",
     "leaflet": "^1.7.1",
     "node-modules": "^1.0.1",
+    "vee-validate": "^4.4.9",
     "vue": "^3.0.0",
     "vue-router": "^4.0.0-0",
-    "vuex": "^4.0.0-0"
+    "vuex": "^4.0.0-0",
+    "yup": "^0.32.9"
   },
   "devDependencies": {
     "@vue-leaflet/vue-leaflet": "^0.6.1",
