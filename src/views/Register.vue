@@ -1,12 +1,19 @@
 <template>
   <div class="container">
     <router-link to="/" class="nmtrail-title">nmtrails</router-link>
-    <img src="../assets/imgs/nm-trail.svg" alt="nmtrail-icon" />
+    <img src="../assets/imgs/nm-trail.svg" alt="user-icon" />
 
-    <div class="card" id="loginCard">
-      <Form @submit="handleLogin" :validation-schema="schema">
-        <p class="form-title">Sign in</p>
-        <s v-if="$route.params.loginFlash"> {{ $route.params.loginFlash }}</s>
+    <div class="card" id="registerCard">
+      <Form @submit="handleRegister" :validation-schema="schema">
+        <p class="form-title">Register new account</p>
+
+        <div class="form-in">
+          <div id="email-label">
+            <label for="email" class="form-label">Email</label>
+          </div>
+          <Field name="email" class="form-control" type="email" />
+          <ErrorMessage name="email" class="error-feedback" />
+        </div>
 
         <div class="form-in">
           <label for="username" class="form-label">Username</label>
@@ -20,9 +27,7 @@
           <ErrorMessage name="password" class="error-feedback" />
         </div>
 
-        <div class="form-submit">
-          <button class="button" id="loginButton">Log in</button>
-        </div>
+        <button class="button" id="registerButton">Register</button>
 
         <div>
           <div v-if="message" class="alert" role="alert">
@@ -32,16 +37,9 @@
       </Form>
     </div>
 
-    <div id="loginPageLinks">
-      <div class="loginPageLink">
-        <span>Don't have an account yet? </span>
-        <router-link to="/register"> Register one here </router-link>
-      </div>
-
-      <div class="loginPageLink">
-        <span>Forgot your password? </span>
-        <router-link to="/forgot-password"> Reset it here </router-link>
-      </div>
+    <div id="login-link">
+      <span>Already have an account?</span>
+      <router-link to="/login"> Login </router-link>
     </div>
   </div>
 </template>
@@ -50,7 +48,7 @@
 import { Form, Field, ErrorMessage } from "vee-validate";
 import * as yup from "yup";
 export default {
-  name: "Login",
+  name: "Register",
   components: {
     Form,
     Field,
@@ -58,10 +56,16 @@ export default {
   },
   data() {
     const schema = yup.object().shape({
-      username: yup.string().required("Username is required!"),
+      username: yup
+        .string()
+        .required("Username is required!")
+        .min(3)
+        .max(16, "Username cannot be greater than 16 characters long."),
+      email: yup.string().email("Email is invalid."),
       password: yup.string().required("Password is required!").min(8).max(256),
     });
     return {
+      successful: false,
       loading: false,
       message: "",
       schema,
@@ -72,25 +76,29 @@ export default {
       return this.$store.state.auth.status.loggedIn;
     },
   },
-  created() {
+  mounted() {
     if (this.loggedIn) {
       this.$router.push("/");
     }
   },
   methods: {
-    handleLogin(user) {
+    handleRegister(user) {
+      this.successful = false;
       this.loading = true;
-      this.$store.dispatch("auth/login", user).then(
-        () => {
-          this.$router.push("/");
+      this.message = "";
+      this.$store.dispatch("auth/register", user, this.email).then(
+        (data) => {
+          this.message = data.message;
+          this.successful = true;
+          this.loading = false;
+          this.$router.push("/login");
         },
         (error) => {
           this.loading = false;
-          this.message = "Invalid credentials";
-
-          (error.response &&
-            error.response.data &&
-            error.response.data.message) ||
+          this.message =
+            (error.response &&
+              error.response.data &&
+              error.response.data.message) ||
             error.message ||
             error.toString();
         }
@@ -107,7 +115,6 @@ img {
 }
 Form {
   height: 100%;
-  width: 100%;
 }
 fieldset {
   position: relative;
@@ -119,8 +126,8 @@ fieldset {
   text-align: center;
   padding: 15px;
   border-radius: 4px;
-  box-shadow: $shadow;
   margin: 10px;
+  box-shadow: $shadow;
 }
 .container {
   display: flex;
@@ -128,27 +135,24 @@ fieldset {
   align-content: center;
   justify-content: center;
 }
-.alert {
-  margin-top: 5px;
-}
-#loginButton {
+#registerButton {
   margin-bottom: 5px;
   width: 100%;
   align-self: flex-start;
 }
-#loginPageLinks {
-  align-self: center;
-  text-align: center;
-  display: flex;
-  row-gap: 15px;
-  flex-direction: column;
-}
-.loginPageLink {
+#login-link {
   font-size: 0.85rem;
   color: $primaryDark;
+  display: flex;
+  justify-content: center;
   column-gap: 6px;
 }
-.loginPageLink a {
+#login-link a {
   color: $highlightOne;
+}
+#email-label {
+  display: flex;
+  align-content: center;
+  column-gap: 5px;
 }
 </style>

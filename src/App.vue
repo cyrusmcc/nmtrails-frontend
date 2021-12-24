@@ -1,9 +1,14 @@
 <template>
   <div class="container">
-    <nav-bar>
+    <nav-bar v-show="!$route.meta.hideNav">
       <router-link class="navLink" to="/">Home</router-link>
       <router-link class="navLink" to="/trails">Trails</router-link>
-      <router-link class="navLink" to="/login">Login</router-link>
+      <div class="navLink" v-if="!currentUser">
+        <router-link to="/login" class="navLink">Login</router-link>
+      </div>
+      <div v-if="currentUser">
+        <a class="navLink" @click.prevent="logOut">Logout</a>
+      </div>
     </nav-bar>
     <router-view id="routeView" />
   </div>

@@ -1,10 +1,10 @@
 import { createRouter, createWebHistory } from "vue-router";
 import Home from "../views/Home.vue";
 import Trails from "../views/Trails.vue";
-import Login from "../views/Login.vue";
 
 // lazy loaded pages
-//const Login = () => import("../views/Login.vue");
+const Login = () => import("../views/Login.vue");
+const Register = () => import("../views/Register.vue");
 
 const routes = [
   {
@@ -25,6 +25,15 @@ const routes = [
     },
 
     component: Login,
+  },
+  {
+    path: "/register",
+    name: "Register",
+    meta: {
+      hideNav: true,
+    },
+
+    component: Register,
   },
 ];
 
