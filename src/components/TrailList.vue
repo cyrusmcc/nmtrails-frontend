@@ -1,20 +1,11 @@
 <template>
   <div class="listContainer">
-    <h2 v-if="!hasSearched">Press enter to search.</h2>
-    <h2 v-if="hasSearched && !trails.length">No results.</h2>
+    <h2 v-if="trails && !trails.length">No results.</h2>
     <ol class="trailList">
       <li v-for="(trail, index) in trails" :key="index">
         <div class="trailContainer">
           <div class="shadow"></div>
-          <img v-bind:src="trail.imageUrl" class="trailImg" alt="" />
-          <!--
-          <img
-            class="trailImg"
-            :src="getImgFromTrailId(index, trail.id)"
-            alt="trail image"
-            onload="this.style.display='block'"
-          />
-          -->
+          <img :src="trail.imageUrl" class="trailImg" alt="" />
           <div class="trailInfoContainer">
             <div class="trailName">
               <router-link :to="'/t/' + trail.id">{{ trail.name }}</router-link>
@@ -34,30 +25,15 @@
             </ol>
           </div>
         </div>
-
-        <!--
-        <div class="trailInfoContainer">
-          <div class="trailTitle">
-            <router-link :to="'/t/' + trail.id">{{
-              trail.title
-            }}</router-link>
-          </div>
-          <ol class="trailTagList">
-            <li v-for="(tag, index) in trail.tags" :key="index">
-              <div class="trailTag">{{ tag.value }}</div>
-            </li>
-          </ol>
-        </div>
-        -->
       </li>
     </ol>
+    <!--- TODO: actually load more -->
+    <button class="button" v-if="trails">Load more</button>
   </div>
 </template>
 
 <script>
 import { NRate } from "naive-ui";
-//import trailService from "../services/trail.service";
-
 
 export default {
   name: "TrailList",
@@ -65,15 +41,8 @@ export default {
     NRate,
   },
 
-  props: ["trails", "hasSearched"],
+  props: ["trails"],
 
-  data() {
-    return {};
-  },
-
-  mounted() {
-    console.log(this.hasSearched);
-  },
 };
 </script>
 
@@ -166,5 +135,8 @@ export default {
   font-style: italic;
   text-shadow: black 0.1em 0.1em 0.2em;
   font-size: 1.1rem;
+}
+.button {
+  margin-top: 20px;
 }
 </style>

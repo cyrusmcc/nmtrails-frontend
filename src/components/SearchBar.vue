@@ -4,7 +4,7 @@
       class="searchBarInput"
       placeholder="Search trails"
       v-model="content"
-      v-on:keyup.enter="$emit('search', content)"
+      @keyup.enter="$emit('search', content)"
     />
     <div class="searchBarButton">
       <div class="searchBarIcon">
@@ -33,6 +33,7 @@ export default {
   padding: 5px;
   border: medium solid $primaryDark;
   border-radius: 20px;
+  margin-top: 20px;
 }
 .searchBarInput {
   width: 100%;
