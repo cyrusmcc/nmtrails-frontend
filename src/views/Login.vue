@@ -127,6 +127,7 @@ fieldset {
   flex-direction: column;
   align-content: center;
   justify-content: center;
+  margin-top: 25px;
 }
 .alert {
   margin-top: 5px;
