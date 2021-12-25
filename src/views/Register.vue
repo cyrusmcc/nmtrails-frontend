@@ -134,6 +134,7 @@ fieldset {
   flex-direction: column;
   align-content: center;
   justify-content: center;
+  margin-top: 25px;
 }
 #registerButton {
   margin-bottom: 5px;
