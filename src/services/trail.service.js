@@ -19,9 +19,18 @@ class TrailService {
         return response.data;
       });
   }
+
   getTrailById(id) {
     return api
       .get(TRAIL_URL + "/" + id)
+      .then((response) => response.data);
+  }
+
+  getTrailExtent(ids) {
+    return api
+      .get(TRAIL_URL + "/extent", { params : {
+        "ids": ids.join(',')
+      }})
       .then((response) => response.data);
   }
 }

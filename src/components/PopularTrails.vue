@@ -8,7 +8,7 @@
         </div>
         <div id="trailInfoContainer">
           <div id="trailName">
-            <router-link :to="'/g/' + trail.id">{{ trail.name }}</router-link>
+            <router-link :to="'/t/' + trail.id">{{ trail.name }}</router-link>
           </div>
           <div id="trailRating">
             <n-rate
