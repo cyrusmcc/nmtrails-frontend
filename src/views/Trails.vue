@@ -1,8 +1,8 @@
 <template>
   <div class="container">
     <search-bar @search="onSearch"></search-bar>
-    <trail-list :trails="trails" :hasSearched="hasSearched" />
-    <a v-if="hasSearched" class="navLink" @click="loadMore">Load More</a>
+    <trail-list :trails="trailsArr" :hasSearched="hasSearched" />
+    <button class="button" v-if="trailsArr && trailsArr.length >= 10" @click="loadMore">Load more</button>
   </div>
 </template>
 
@@ -16,7 +16,6 @@ export default {
   name: "Trails",
   data() {
     return {
-      trails: [],
       hasSearched: false,
     };
   },
@@ -35,15 +34,22 @@ export default {
 
       const trails = async () => {
         const arr = await trailService.getTrailsByName(searchTerm);
-        this.trails = arr;
+        this.$store.state.trail.trailArr = arr;
       };
       trails();
     },
-    getTrails() {
+    getInitialTrails() {
+      const trails = async () => {
+        const arr = await trailService.getTrails(true);
+        this.$store.state.trail.trailArr = arr;
+      };
+      trails();
+    },
+    loadMore() {
       const trails = async () => {
         const arr = await trailService.getTrails();
         for (let i = 0; i < arr.length; i++) {
-          this.trails.push(arr[i]);
+          this.$store.state.trail.trailArr.push(arr[i]);
         }
       };
       trails();
@@ -55,22 +61,16 @@ export default {
       let params = new URLSearchParams(this.$router.currentRoute.value.query);
       this.onSearch(params.get("search"));
     } else {
-      this.getTrails();
+      this.getInitialTrails();
     }
   },
-  /* When trail route-link is resubmitted but not remounted, need to fix this
   watch: {
     $route() {
       if (!window.location.search) {
-        const trails = async () => {
-          const arr = await trailService.getTrails();
-          this.trails = arr;
-        };
-        trails();
+        this.getInitialTrails();
       }
     },
   },
-  */
 };
 </script>
 
@@ -79,5 +79,8 @@ export default {
   @include flexCenter();
   row-gap: 10px;
   overflow-y: scroll;
+}
+.button {
+  margin-top: 20px;
 }
 </style>

@@ -27,8 +27,6 @@
         </div>
       </li>
     </ol>
-    <!--- TODO: actually load more -->
-    <button class="button" v-if="trails">Load more</button>
   </div>
 </template>
 
@@ -135,8 +133,5 @@ export default {
   font-style: italic;
   text-shadow: black 0.1em 0.1em 0.2em;
   font-size: 1.1rem;
-}
-.button {
-  margin-top: 20px;
 }
 </style>

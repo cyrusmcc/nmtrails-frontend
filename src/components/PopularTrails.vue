@@ -53,7 +53,7 @@ export default {
   mounted() {
     if (this.popularTrails.length === 0) {
       const trails = async () => {
-        const arr = await trailService.getTrails();
+        const arr = await trailService.getTrails(true);
         for (let i = 0; i < arr.length; i++) {
           this.popularTrails.push(arr[i]);
         }

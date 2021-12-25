@@ -7,7 +7,8 @@ var pageSorted = 0;
 var pageSize = 10;
 
 class TrailService {
-  getTrails() {
+  getTrails(initial) {
+    if (initial) page = 0;
     return api
       .get(TRAIL_URL + "/", {
         params: {
@@ -20,9 +21,6 @@ class TrailService {
         return response.data;
       });
   }
-<<<<<<< Updated upstream
-
-=======
   getTrailsByName(name) {
     return api
       .get(TRAIL_URL + "/", {
@@ -37,7 +35,6 @@ class TrailService {
         return response.data;
       });
   }
->>>>>>> Stashed changes
   getTrailById(id) {
     return api
       .get(TRAIL_URL + "/" + id)
