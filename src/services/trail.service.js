@@ -3,13 +3,15 @@ import api from "./http-commons";
 const TRAIL_URL = process.env.VUE_APP_BACKEND_URL + "/trails";
 
 var page = 0;
-var pageSize = 0;
+var pageSorted = 0;
+var pageSize = 10;
 
 class TrailService {
-  getTrails() {
+  getTrails(initial) {
+    if (initial) page = 0;
     return api
       .get(TRAIL_URL + "/", {
-        headers: {
+        params: {
           page,
           pageSize,
         },
@@ -19,7 +21,20 @@ class TrailService {
         return response.data;
       });
   }
-
+  getTrailsByName(name) {
+    return api
+      .get(TRAIL_URL + "/", {
+        params: {
+          name,
+          pageSorted,
+          pageSize,
+        },
+      })
+      .then((response) => {
+        pageSorted++;
+        return response.data;
+      });
+  }
   getTrailById(id) {
     return api
       .get(TRAIL_URL + "/" + id)
