@@ -10,13 +10,13 @@
 
         <div class="form-in">
           <label for="username" class="form-label">Username</label>
-          <Field name="username" class="form-control" type="username" />
+          <Field name="username" class="form-control" type="username" autocomplete="on"/>
           <ErrorMessage name="username" class="error-feedback" />
         </div>
 
         <div class="form-in">
           <label class="form-label" for="password">Password</label>
-          <Field name="password" class="form-control" type="password" />
+          <Field name="password" class="form-control" type="password" autocomplete="off"/>
           <ErrorMessage name="password" class="error-feedback" />
         </div>
 

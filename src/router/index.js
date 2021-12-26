@@ -6,6 +6,9 @@ import TrailPage from "../views/TrailPage.vue";
 // lazy loaded pages
 const Login = () => import("../views/Login.vue");
 const Register = () => import("../views/Register.vue");
+const ForgotPassword = () => import("../views/ForgotPassword.vue");
+const ResetPassword = () => import("../views/ResetPassword.vue");
+const Settings = () => import("../views/Settings.vue");
 
 const routes = [
   {
@@ -40,6 +43,30 @@ const routes = [
     },
 
     component: Register,
+  },
+  {
+    path: "/settings",
+    name: "Settings",
+
+    component: Settings,
+  },
+  {
+    path: "/forgot-password",
+    name: "ForgotPassword",
+    meta: {
+      hideNav: true,
+    },
+
+    component: ForgotPassword,
+  },
+  {
+    path: "/reset-password/:userId(.*)/:passToken(.*)",
+    name: "ResetPassword",
+    meta: {
+      hideNav: true,
+    },
+
+    component: ResetPassword,
   },
 ];
 

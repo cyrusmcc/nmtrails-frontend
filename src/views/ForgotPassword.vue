@@ -1,35 +1,26 @@
 <template>
   <div class="container">
     <router-link to="/" class="nmtrail-title">nmtrails</router-link>
-    <img src="../assets/imgs/nm-trail.svg" alt="user-icon" />
+    <img src="../assets/imgs/nm-trail.svg" alt="nmtrail-icon" />
 
-    <div class="card" id="registerCard">
-      <Form @submit="handleRegister" :validation-schema="schema">
-        <p class="form-title">Register new account</p>
+    <div class="card">
+      <Form @submit="handlePasswordResetRequest" :validation-schema="schema">
+        <p class="form-title">Reset password</p>
 
         <div class="form-in">
-          <div id="email-label">
-            <label for="email" class="form-label">Email</label>
-          </div>
+          <label for="email" class="form-label">Enter your Email</label>
           <Field name="email" class="form-control" type="email" />
           <ErrorMessage name="email" class="error-feedback" />
         </div>
 
-        <div class="form-in">
-          <label for="username" class="form-label">Username</label>
-          <Field name="username" class="form-control" type="username" autocomplete="on"/>
-          <ErrorMessage name="username" class="error-feedback" />
+        <div class="form-submit">
+          <button class="button" id="resetButton">Reset password</button>
         </div>
-
-        <div class="form-in">
-          <label class="form-label" for="password">Password</label>
-          <Field name="password" class="form-control" type="password" />
-          <ErrorMessage name="password" class="error-feedback" autocomplete="off"/>
-        </div>
-
-        <button class="button" id="registerButton">Register</button>
 
         <div>
+          <div v-if="loading" class="alert" role="alert">
+            One moment please...
+          </div>
           <div v-if="message" class="alert" role="alert">
             {{ message }}
           </div>
@@ -37,9 +28,11 @@
       </Form>
     </div>
 
-    <div id="login-link">
-      <span>Already have an account?</span>
-      <router-link to="/login"> Login </router-link>
+    <div id="pageLinks">
+      <div class="pageLink">
+        <span>Return to </span>
+        <router-link to="/login">Log in</router-link>
+      </div>
     </div>
   </div>
 </template>
@@ -47,8 +40,10 @@
 <script>
 import { Form, Field, ErrorMessage } from "vee-validate";
 import * as yup from "yup";
+import SettingService from "@/services/setting.service";
+
 export default {
-  name: "Register",
+  name: "ForgotPassword",
   components: {
     Form,
     Field,
@@ -56,16 +51,9 @@ export default {
   },
   data() {
     const schema = yup.object().shape({
-      username: yup
-        .string()
-        .required("Username is required!")
-        .min(3)
-        .max(16, "Username cannot be greater than 16 characters long."),
-      email: yup.string().email("Email is invalid."),
-      password: yup.string().required("Password is required!").min(8).max(256),
+      email: yup.string().required("You must provide a valid email"),
     });
     return {
-      successful: false,
       loading: false,
       message: "",
       schema,
@@ -76,22 +64,19 @@ export default {
       return this.$store.state.auth.status.loggedIn;
     },
   },
-  mounted() {
+  created() {
     if (this.loggedIn) {
       this.$router.push("/");
     }
   },
   methods: {
-    handleRegister(user) {
-      this.successful = false;
-      this.loading = true;
+    handlePasswordResetRequest(values) {
       this.message = "";
-      this.$store.dispatch("auth/register", user, this.email).then(
+      this.loading = true;
+      SettingService.requestForgottenPasswordReset(values).then(
         (data) => {
-          this.message = data.message;
-          this.successful = true;
           this.loading = false;
-          this.$router.push("/login");
+          this.message = data.message;
         },
         (error) => {
           this.loading = false;
@@ -126,8 +111,8 @@ fieldset {
   text-align: center;
   padding: 15px;
   border-radius: 4px;
-  margin: 10px;
   box-shadow: $shadow;
+  margin: 10px;
 }
 .container {
   display: flex;
@@ -136,24 +121,26 @@ fieldset {
   justify-content: center;
   margin-top: 25px;
 }
-#registerButton {
+.alert {
+  margin-top: 5px;
+}
+#resetButton {
   margin-bottom: 5px;
   width: 100%;
   align-self: flex-start;
 }
-#login-link {
+#pageLinks {
+  align-self: center;
+  display: flex;
+  row-gap: 15px;
+  flex-direction: column;
+}
+.pageLink {
   font-size: 0.85rem;
   color: $primaryDark;
-  display: flex;
-  justify-content: center;
   column-gap: 6px;
 }
-#login-link a {
+.pageLink a {
   color: $highlightOne;
-}
-#email-label {
-  display: flex;
-  align-content: center;
-  column-gap: 5px;
 }
 </style>

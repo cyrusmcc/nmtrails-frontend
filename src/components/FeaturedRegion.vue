@@ -1,5 +1,5 @@
 <template>
-    <trail-map v-bind:trails="regionTrails"></trail-map>
+    <trail-map :trails="regionTrails"></trail-map>
 </template>
 
 <script>
