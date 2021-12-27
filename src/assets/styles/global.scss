@@ -155,6 +155,21 @@ th {
     padding: 0 3px 0 3px;
     width: fit-content;
     cursor: pointer;
+}
+
+.button:hover {
+    box-shadow: $shadowLight;
+}
+
+.labelButton {
+    border: $highlightOne 1px solid;
+    color: $primaryDark;
+    border-radius: 20px;
+    padding: 5px;
+    cursor: pointer;
+}
+
+.labelButton:hover {
     box-shadow: $shadowLight;
 }
 
@@ -170,9 +185,9 @@ th {
     font-size: 1.1rem;
     color: $primaryDark;
     font-family: $paytone;
-  }
+}
 
-  .modalBackground {
+.modalBackground {
     z-index: 4;
     display: flex;
     justify-content: center;
@@ -184,4 +199,4 @@ th {
     top: 0;
     left: 0;
     right: 0;
-  }
+}
