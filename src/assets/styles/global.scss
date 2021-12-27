@@ -155,6 +155,21 @@ th {
     padding: 0 3px 0 3px;
     width: fit-content;
     cursor: pointer;
+}
+
+.button:hover {
+    box-shadow: $shadowLight;
+}
+
+.labelButton {
+    border: $highlightOne 1px solid;
+    color: $primaryDark;
+    border-radius: 20px;
+    padding: 5px;
+    cursor: pointer;
+}
+
+.labelButton:hover {
     box-shadow: $shadowLight;
 }
 
@@ -193,7 +208,6 @@ th {
     left: 0;
     right: 0;
 }
-
 .card {
     color: $primaryDark;
     text-align: center;

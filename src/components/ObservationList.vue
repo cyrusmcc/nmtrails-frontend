@@ -47,17 +47,13 @@ export default {
 
   methods: {
     async getObservations(trail) {
-      console.log(this.trail);
       let extent = await trailsService.getTrailExtent([trail.id]);
-      console.log(extent);
       this.observations = await inaturalistService.getObservations(extent);
-      console.log(this.observations[0]);
     },
   },
 
   watch: {
     trail: function (val) {
-      console.log("what");
       this.getObservations(val);
     },
   },
@@ -74,14 +70,7 @@ span {
   align-items: center;
   height: 30rem;
   width: 100%;
-  background: rgb(40, 36, 29);
-  background: linear-gradient(
-    190deg,
-    rgba(40, 36, 29, 1) 0%,
-    rgba(66, 43, 33, 1) 74%,
-    rgba(73, 48, 39, 1) 100%
-  );
-  color: $primaryLight;
+  color: $primaryDark;
 }
 .title {
   width: 90%;
@@ -96,13 +85,13 @@ span {
   list-style: none;
   height: fit-content;
   margin: 0 auto 25px auto;
-  border: 1px solid #5d5146;
+  border: 1px solid #e4ebf8;
   border-radius: 10px;
-  box-shadow: $shadow;
+  box-shadow: $shadowLight;
   overflow: hidden;
 }
 .observationImg {
-  height: 7rem;
+  height: 8rem;
   width: 100%;
   object-fit: cover;
   opacity: 80%;

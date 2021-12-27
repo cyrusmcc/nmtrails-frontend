@@ -40,7 +40,6 @@ class TrailService {
       .get(TRAIL_URL + "/" + id)
       .then((response) => response.data);
   }
-
   getTrailExtent(ids) {
     return api
       .get(TRAIL_URL + "/extent", { params : {
@@ -48,6 +47,15 @@ class TrailService {
       }})
       .then((response) => response.data);
   }
+  /*
+  getFeaturedRegion() {
+    return api
+      .get(TRAIL_URL + "/featured")
+      .then((response) => {
+
+      })
+  }
+  */
 }
 
 export default new TrailService();
