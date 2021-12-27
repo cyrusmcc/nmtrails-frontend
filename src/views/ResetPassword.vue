@@ -131,14 +131,6 @@ fieldset {
 a {
   color: $highlightOne;
 }
-.card {
-  color: $primaryDark;
-  text-align: center;
-  padding: 15px;
-  border-radius: 4px;
-  box-shadow: $shadowLight;
-  margin: 10px;
-}
 .container {
   display: flex;
   flex-direction: column;

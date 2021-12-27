@@ -35,6 +35,35 @@ class SettingService {
         return response.data;
       });
   };
+  handlePasswordChange({ currentPassword }, { newPassword }) {
+    return api
+      .post(SETTING_API_URL + "/change-password", {
+        currentPassword,
+        newPassword,
+      });
+  }
+  requestEmailChange({ email }, { password }) {
+    //console.log(email, password);
+    return api
+      .post(SETTING_API_URL + "/email-change-request", {
+        email,
+        password,
+      })
+      .then(response => {
+        return response.data;
+      });
+  }
+  handleEmailChange(userId, token) {
+    console.log(userId, token);
+    return api
+      .post(SETTING_API_URL + "/handle-email-change", {
+        userId,
+        token
+      })
+      .then(response => {
+        return response.data;
+      });
+  }
 
 }
 export default new SettingService();

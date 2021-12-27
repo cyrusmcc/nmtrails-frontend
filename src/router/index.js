@@ -9,6 +9,7 @@ const Register = () => import("../views/Register.vue");
 const ForgotPassword = () => import("../views/ForgotPassword.vue");
 const ResetPassword = () => import("../views/ResetPassword.vue");
 const Settings = () => import("../views/Settings.vue");
+const ChangeEmailConfirm = () => import("../views/ChangeEmailConfirm.vue");
 
 const routes = [
   {
@@ -27,7 +28,8 @@ const routes = [
     component: TrailPage
   },
   {
-    path: "/login:loginFlash(.*)",
+    path: "/login/:flashMessage?",
+    //alias: "/login/:flashMessage",
     name: "Login",
     meta: {
       hideNav: true,
@@ -67,6 +69,15 @@ const routes = [
     },
 
     component: ResetPassword,
+  },
+  {
+    path: "/email-change-confirmation/:userId(.*)/:emailToken(.*)",
+    name: "ChangeEmailConfirm",
+    meta: {
+      hideNav: true,
+    },
+
+    component: ChangeEmailConfirm,
   },
 ];
 

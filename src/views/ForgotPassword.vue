@@ -107,13 +107,6 @@ fieldset {
   align-items: center;
   flex-direction: column;
 }
-.card {
-  text-align: center;
-  padding: 15px;
-  border-radius: 4px;
-  box-shadow: $shadow;
-  margin: 10px;
-}
 .container {
   display: flex;
   flex-direction: column;
