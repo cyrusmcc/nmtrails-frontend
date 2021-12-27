@@ -6,6 +6,9 @@
       <div class="navLink" v-if="!currentUser">
         <router-link to="/login" class="navLink">Login</router-link>
       </div>
+      <div class="navLink" v-if="currentUser">
+        <router-link to="/settings" class="navLink">Settings</router-link>
+      </div>
       <div v-if="currentUser">
         <a class="navLink" @click.prevent="logOut">Logout</a>
       </div>

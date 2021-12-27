@@ -158,6 +158,14 @@ th {
     box-shadow: $shadowLight;
 }
 
+.labelButton {
+    border: $highlightOne 1px solid;
+    color: $primaryDark;
+    border-radius: 4px;
+    padding: 5px;
+    cursor: pointer;
+}
+
 .nmtrail-title {
     display: flex;
     flex-direction: column;
@@ -170,9 +178,9 @@ th {
     font-size: 1.1rem;
     color: $primaryDark;
     font-family: $paytone;
-  }
+}
 
-  .modalBackground {
+.modalBackground {
     z-index: 4;
     display: flex;
     justify-content: center;
@@ -184,4 +192,14 @@ th {
     top: 0;
     left: 0;
     right: 0;
+}
+
+.card {
+    color: $primaryDark;
+    text-align: center;
+    padding: 15px;
+    border-radius: 4px;
+    box-shadow: $shadowLight;
+    margin: 10px;
+    min-height: 20rem;
   }

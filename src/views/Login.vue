@@ -6,17 +6,25 @@
     <div class="card" id="loginCard">
       <Form @submit="handleLogin" :validation-schema="schema">
         <p class="form-title">Sign in</p>
-        <s v-if="$route.params.loginFlash"> {{ $route.params.loginFlash }}</s>
-
         <div class="form-in">
           <label for="username" class="form-label">Username</label>
-          <Field name="username" class="form-control" type="username" />
+          <Field
+            name="username"
+            class="form-control"
+            type="username"
+            autocomplete="on"
+          />
           <ErrorMessage name="username" class="error-feedback" />
         </div>
 
         <div class="form-in">
           <label class="form-label" for="password">Password</label>
-          <Field name="password" class="form-control" type="password" />
+          <Field
+            name="password"
+            class="form-control"
+            type="password"
+            autocomplete="off"
+          />
           <ErrorMessage name="password" class="error-feedback" />
         </div>
 
@@ -27,6 +35,20 @@
         <div>
           <div v-if="message" class="alert" role="alert">
             {{ message }}
+          </div>
+          <div
+            v-if="$route.params.flashMessage == 'pass-change-success'"
+            class="alert"
+            role="alert"
+          >
+            Password changed successfully
+          </div>
+          <div
+            v-if="$route.params.flashMessage == 'email-change-success'"
+            class="alert"
+            role="alert"
+          >
+            Email changed successfully
           </div>
         </div>
       </Form>
