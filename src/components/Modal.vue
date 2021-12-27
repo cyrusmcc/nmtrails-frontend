@@ -29,6 +29,7 @@ export default {
   text-align: center;
   position: relative;
   padding: 40px 10px 10px 10px;
+  max-width: 80%;
 }
 #modalClose {
   position: absolute;

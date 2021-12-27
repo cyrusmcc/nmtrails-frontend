@@ -173,6 +173,14 @@ th {
     box-shadow: $shadowLight;
 }
 
+.labelButton {
+    border: $highlightOne 1px solid;
+    color: $primaryDark;
+    border-radius: 4px;
+    padding: 5px;
+    cursor: pointer;
+}
+
 .nmtrail-title {
     display: flex;
     flex-direction: column;
@@ -200,3 +208,12 @@ th {
     left: 0;
     right: 0;
 }
+.card {
+    color: $primaryDark;
+    text-align: center;
+    padding: 15px;
+    border-radius: 4px;
+    box-shadow: $shadowLight;
+    margin: 10px;
+    min-height: 20rem;
+  }
