@@ -17,12 +17,16 @@
         <div class="buttonContainer" v-if="currentUser">
           <button
             class="button addButton"
-            v-if="!hasTrailInToHikeList()"
+            v-if="!hasTrailInList"
             @click="addToHikeList()"
           >
             Add to hike list
           </button>
-          <button class="button removeButton" v-if="hasTrailInToHikeList()">
+          <button
+            class="button removeButton"
+            v-if="hasTrailInList"
+            @click="removeTrailFromList()"
+          >
             Remove from hike list
           </button>
         </div>
@@ -49,6 +53,7 @@ export default {
   data() {
     return {
       trail: {},
+      hasTrailInList: false,
       message: "",
     };
   },
@@ -61,14 +66,17 @@ export default {
     const getTrails = async () => {
       this.trail = await trailService.getTrailById(this.$route.params.id);
     };
-    getTrails();
+    getTrails().then(() => {
+      this.hasTrailInToHikeList();
+    });
   },
   methods: {
     hasTrailInToHikeList() {
-      return userService.hasTrailInToHikeList(
-        this.currentUser.id,
-        this.trail.id
-      ).data;
+      userService
+        .hasTrailInToHikeList(this.currentUser.id, this.trail.id)
+        .then((res) => {
+          this.hasTrailInList = res;
+        });
     },
     addToHikeList() {
       userService
@@ -76,6 +84,7 @@ export default {
         .then(
           (response) => {
             this.message = response.data;
+            this.hasTrailInList = true;
             this.hasTrailInToHikeList();
           },
           (error) => {
@@ -87,6 +96,17 @@ export default {
               error.toString();
           }
         );
+    },
+    removeTrailFromList() {
+      const remove = async () => {
+        await userService.removeTrailFromUserList(
+          this.currentUser.id,
+          this.trail.id,
+          "To Hike"
+        );
+      };
+      remove();
+      this.hasTrailInList = false;
     },
   },
 };
@@ -127,6 +147,7 @@ export default {
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
+  margin-bottom: 5px;
 }
 .trailName {
   margin: 0;
