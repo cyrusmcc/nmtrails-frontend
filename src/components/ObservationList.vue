@@ -108,6 +108,7 @@ span {
   margin: 5px;
   align-items: center;
   justify-content: center;
+  border: 1px solid #e4ebf8;
   border-radius: 50%;
 }
 .logoContainer:hover {

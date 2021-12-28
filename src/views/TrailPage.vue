@@ -19,14 +19,35 @@
       <div class="trailImgContainer">
         <img :src="trail.imageUrl" class="trailImg" />
       </div>
+      <div class="buttonContainer" v-if="currentUser">
+        <button
+          class="button addButton"
+          v-if="!hasTrailInToHikeList()"
+          @click="addToHikeList()"
+        >
+          Add to hike list
+        </button>
+        <button
+          class="button removeButton"
+          v-if="hasTrailInToHikeList()"
+        >
+          Remove from hike list
+        </button>
+      </div>
+    </div>
+    <div class="trailImgContainer">
+      <img :src="trail.imageUrl" class="trailImg" />
+
     </div>
     <observation-list :trail="trail"></observation-list>
   </div>
 </template>
 
 <script>
-import trailService from "../services/trail.service";
-import ObservationList from "../components/ObservationList.vue";
+import trailService from "@/services/trail.service";
+import userService from "@/services/user.service";
+import ObservationList from "@/components/ObservationList.vue";
+
 import { NRate } from "naive-ui";
 
 export default {
@@ -36,14 +57,43 @@ export default {
   data() {
     return {
       trail: {},
+      message: "",
     };
   },
-
+  computed: {
+    currentUser() {
+      return this.$store.state.auth.user;
+    },
+  },
   mounted() {
     const getTrails = async () => {
       this.trail = await trailService.getTrailById(this.$route.params.id);
     };
     getTrails();
+  },
+  methods: {
+    hasTrailInToHikeList() {
+      return userService.hasTrailInToHikeList(
+        this.currentUser.id,
+        this.trail.id
+      ).data;
+    },
+    addToHikeList() {
+      userService.addTrailToHikeList(this.currentUser.id, this.trail.id, "To Hike").then(
+        (response) => {
+          this.message = response.data;
+          this.hasTrailInToHikeList();
+        },
+        (error) => {
+          this.message =
+            (error.response &&
+              error.response.data &&
+              error.response.data.message) ||
+            error.message ||
+            error.toString();
+        }
+      );
+    },
   },
 };
 </script>
@@ -98,5 +148,4 @@ export default {
   color: $highlightTwo;
   font-weight: bold;
   line-height: 1.8rem;
-}
 </style>

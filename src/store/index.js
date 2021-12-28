@@ -5,7 +5,7 @@ import { auth } from "./auth.module";
 const store = createStore({
   modules: {
     trail,
-    auth
+    auth,
   },
 });
 
