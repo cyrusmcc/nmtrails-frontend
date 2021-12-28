@@ -7,6 +7,9 @@
         <router-link to="/login" class="navLink">Login</router-link>
       </div>
       <div class="navLink" v-if="currentUser">
+        <router-link to="/my-trails" class="navLink">My trails</router-link>
+      </div>
+      <div class="navLink" v-if="currentUser">
         <router-link to="/settings" class="navLink">Settings</router-link>
       </div>
       <div v-if="currentUser">
@@ -73,6 +76,5 @@ export default {
 
 #routeView {
   padding-top: 45px;
-  overflow-y: hidden;
 }
 </style>
