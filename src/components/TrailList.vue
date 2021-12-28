@@ -10,7 +10,7 @@
             <div class="trailName">
               <router-link :to="'/t/' + trail.id">{{ trail.name }}</router-link>
             </div>
-            <div class="trailRating">
+            <div class="trailRating" v-show="rating">
               <NRate
                 color="#4fb233"
                 readonly
@@ -25,6 +25,18 @@
             </ol>
           </div>
         </div>
+        <div class="userTrailOptions" v-if="userOptions && trails.length > 0">
+          <div class="removeButtonContainer" @click="removeFromUserList(trail)">
+            <img
+              src="@/assets/imgs/trashcan.svg"
+              alt="delete-icon"
+              class="removeTrailIcon"
+            />
+          </div>
+          <button class="button addButton" @click="addToUserHikedList(trail)">
+            Add to my finished hikes
+          </button>
+        </div>
       </li>
     </ol>
   </div>
@@ -38,14 +50,21 @@ export default {
   components: {
     NRate,
   },
-
-  props: ["trails"],
-
+  props: ["trails", "rating", "userOptions"],
+  methods: {
+    removeFromUserList(trail) {
+      this.$emit("removeTrailFromUserList", trail);
+    },
+    addToUserHikedList(trail) {
+      this.$emit("addToUserHikedList", trail);
+    },
+  },
 };
 </script>
 
 <style scoped lang="scss">
 .listContainer {
+  position: relative;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -62,11 +81,10 @@ export default {
 }
 .trailList > li {
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   align-items: center;
   list-style-type: none;
   width: 100%;
-  box-shadow: $shadowLight;
 }
 .trailContainer {
   position: relative;
@@ -103,35 +121,34 @@ export default {
   flex-direction: column;
   align-items: flex-start;
 }
-.trailTagList {
-  width: 95%;
-  padding: 0;
-  display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
-  justify-content: flex-start;
-  align-content: flex-start;
-  column-gap: 5px;
-}
-.trailTagList > li {
-  list-style-type: none;
-}
-.trailTag {
-  height: fit-content;
-  width: fit-content;
-  background-color: $primaryLight;
-  padding: 1px 10px;
-  font-size: 0.8rem;
-  border-radius: 8px;
-  margin-top: 10px;
-  box-shadow: $shadowLight;
-}
-.trailName {
-}
 .trailName > a {
   color: $primaryLight;
   font-style: italic;
   text-shadow: black 0.1em 0.1em 0.2em;
   font-size: 1.1rem;
+}
+.userTrailOptions {
+  display: flex;
+  flex-direction: row;
+  column-gap: 10px;
+  padding: 10px;
+  width: inherit;
+  box-shadow: $shadowLight;
+  border-radius: 0 0 4px 4px;
+  border: 1px solid #e4ebf8;
+  border-top: 0;
+}
+.removeButtonContainer {
+  @include flexCenter();
+  background: $highlightThree;
+  border-radius: 50%;
+  width: 2.5rem;
+  height: 2.5rem;
+  padding: 2px;
+}
+.removeTrailIcon {
+  height: 1.8rem;
+  width: 1.8rem;
+  margin-right: 1px;
 }
 </style>
