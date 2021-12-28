@@ -14,30 +14,26 @@
             />
           </div>
         </div>
-        <button class="button toHikeButton">Add to hike list</button>
+        <div class="buttonContainer" v-if="currentUser">
+          <button
+            class="button addButton"
+            v-if="!hasTrailInList"
+            @click="addToHikeList()"
+          >
+            Add to hike list
+          </button>
+          <button
+            class="button removeButton"
+            v-if="hasTrailInList"
+            @click="removeTrailFromList()"
+          >
+            Remove from hike list
+          </button>
+        </div>
       </div>
       <div class="trailImgContainer">
         <img :src="trail.imageUrl" class="trailImg" />
       </div>
-      <div class="buttonContainer" v-if="currentUser">
-        <button
-          class="button addButton"
-          v-if="!hasTrailInToHikeList()"
-          @click="addToHikeList()"
-        >
-          Add to hike list
-        </button>
-        <button
-          class="button removeButton"
-          v-if="hasTrailInToHikeList()"
-        >
-          Remove from hike list
-        </button>
-      </div>
-    </div>
-    <div class="trailImgContainer">
-      <img :src="trail.imageUrl" class="trailImg" />
-
     </div>
     <observation-list :trail="trail"></observation-list>
   </div>
@@ -57,6 +53,7 @@ export default {
   data() {
     return {
       trail: {},
+      hasTrailInList: false,
       message: "",
     };
   },
@@ -69,30 +66,47 @@ export default {
     const getTrails = async () => {
       this.trail = await trailService.getTrailById(this.$route.params.id);
     };
-    getTrails();
+    getTrails().then(() => {
+      this.hasTrailInToHikeList();
+    });
   },
   methods: {
     hasTrailInToHikeList() {
-      return userService.hasTrailInToHikeList(
-        this.currentUser.id,
-        this.trail.id
-      ).data;
+      userService
+        .hasTrailInToHikeList(this.currentUser.id, this.trail.id)
+        .then((res) => {
+          this.hasTrailInList = res;
+        });
     },
     addToHikeList() {
-      userService.addTrailToHikeList(this.currentUser.id, this.trail.id, "To Hike").then(
-        (response) => {
-          this.message = response.data;
-          this.hasTrailInToHikeList();
-        },
-        (error) => {
-          this.message =
-            (error.response &&
-              error.response.data &&
-              error.response.data.message) ||
-            error.message ||
-            error.toString();
-        }
-      );
+      userService
+        .addTrailToHikeList(this.currentUser.id, this.trail.id, "To Hike")
+        .then(
+          (response) => {
+            this.message = response.data;
+            this.hasTrailInList = true;
+            this.hasTrailInToHikeList();
+          },
+          (error) => {
+            this.message =
+              (error.response &&
+                error.response.data &&
+                error.response.data.message) ||
+              error.message ||
+              error.toString();
+          }
+        );
+    },
+    removeTrailFromList() {
+      const remove = async () => {
+        await userService.removeTrailFromUserList(
+          this.currentUser.id,
+          this.trail.id,
+          "To Hike"
+        );
+      };
+      remove();
+      this.hasTrailInList = false;
     },
   },
 };
@@ -133,6 +147,7 @@ export default {
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
+  margin-bottom: 5px;
 }
 .trailName {
   margin: 0;
@@ -148,4 +163,5 @@ export default {
   color: $highlightTwo;
   font-weight: bold;
   line-height: 1.8rem;
+}
 </style>
