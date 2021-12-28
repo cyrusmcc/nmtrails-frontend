@@ -1,22 +1,24 @@
 <template>
   <div class="container">
     <div class="trailInfo">
-      <div class="trailHeader">
-        <h3 class="trailName">{{ trail.name }}</h3>
-        <div class="trailRating">
-          <NRate
-            color="#4fb233"
-            readonly
-            allow-half
-            size="small"
-            :default-value="trail.rating"
-          />
+      <div class="trailPageHeader">
+        <div class="trailId">
+          <h3 class="trailName">{{ trail.name }}</h3>
+          <div class="trailRating">
+            <NRate
+              color="#4fb233"
+              readonly
+              allow-half
+              size="small"
+              :default-value="trail.rating"
+            />
+          </div>
         </div>
+        <button class="button toHikeButton">Add to hike list</button>
       </div>
-      <button class="button toHikeButton">Add to hike list</button>
-    </div>
-    <div class="trailImgContainer">
-      <img :src="trail.imageUrl" class="trailImg" />
+      <div class="trailImgContainer">
+        <img :src="trail.imageUrl" class="trailImg" />
+      </div>
     </div>
     <observation-list :trail="trail"></observation-list>
   </div>
@@ -66,21 +68,25 @@ export default {
   overflow: visible;
   width: 100%;
 }
-
 .trailInfo {
+  width: 95%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  border-radius: 4px;
+  overflow: hidden;
+  margin: 5px 0;
+}
+.trailPageHeader {
   width: 95%;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
-  margin: 5px 0;
 }
-
 .trailName {
   margin: 0;
   font-style: italic;
-}
-.trailRating {
 }
 .toHikeButton {
   margin: 0;
@@ -88,7 +94,7 @@ export default {
   border: 2px solid $highlightTwo;
   font-size: 0.9em;
   background: none;
-  border-radius: 20px; 
+  border-radius: 20px;
   color: $highlightTwo;
   font-weight: bold;
   line-height: 1.8rem;
