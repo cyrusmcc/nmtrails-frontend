@@ -14,30 +14,22 @@
             />
           </div>
         </div>
-        <button class="button toHikeButton">Add to hike list</button>
+        <div class="buttonContainer" v-if="currentUser">
+          <button
+            class="button addButton"
+            v-if="!hasTrailInToHikeList()"
+            @click="addToHikeList()"
+          >
+            Add to hike list
+          </button>
+          <button class="button removeButton" v-if="hasTrailInToHikeList()">
+            Remove from hike list
+          </button>
+        </div>
       </div>
       <div class="trailImgContainer">
         <img :src="trail.imageUrl" class="trailImg" />
       </div>
-      <div class="buttonContainer" v-if="currentUser">
-        <button
-          class="button addButton"
-          v-if="!hasTrailInToHikeList()"
-          @click="addToHikeList()"
-        >
-          Add to hike list
-        </button>
-        <button
-          class="button removeButton"
-          v-if="hasTrailInToHikeList()"
-        >
-          Remove from hike list
-        </button>
-      </div>
-    </div>
-    <div class="trailImgContainer">
-      <img :src="trail.imageUrl" class="trailImg" />
-
     </div>
     <observation-list :trail="trail"></observation-list>
   </div>
@@ -79,20 +71,22 @@ export default {
       ).data;
     },
     addToHikeList() {
-      userService.addTrailToHikeList(this.currentUser.id, this.trail.id, "To Hike").then(
-        (response) => {
-          this.message = response.data;
-          this.hasTrailInToHikeList();
-        },
-        (error) => {
-          this.message =
-            (error.response &&
-              error.response.data &&
-              error.response.data.message) ||
-            error.message ||
-            error.toString();
-        }
-      );
+      userService
+        .addTrailToHikeList(this.currentUser.id, this.trail.id, "To Hike")
+        .then(
+          (response) => {
+            this.message = response.data;
+            this.hasTrailInToHikeList();
+          },
+          (error) => {
+            this.message =
+              (error.response &&
+                error.response.data &&
+                error.response.data.message) ||
+              error.message ||
+              error.toString();
+          }
+        );
     },
   },
 };
@@ -148,4 +142,5 @@ export default {
   color: $highlightTwo;
   font-weight: bold;
   line-height: 1.8rem;
+}
 </style>
