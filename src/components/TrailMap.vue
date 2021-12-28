@@ -5,19 +5,29 @@
       src="../assets/imgs/green-gradient.svg"
       alt="gradient background"
     />
-    <l-map id="map" :options="{ attributionControl: false }" ref="map">
+    <l-map
+      id="map"
+      :options="{ attributionControl: false }"
+      :zoom="zoom"
+      ref="map"
+    >
       <l-tile-layer
         url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
       ></l-tile-layer>
-      <l-geo-json :geojson="geojson" :options="geojsonOptions" ref="gjElem"></l-geo-json>
+      <l-geo-json
+        :geojson="geojson"
+        :options="geojsonOptions"
+        ref="gjElem"
+      ></l-geo-json>
+      <l-polygon :lat-lngs="polygon.latlngs" :color="polygon.color" />
     </l-map>
   </div>
 </template>
 
 <script>
 import "leaflet/dist/leaflet.css";
-import { LMap, LTileLayer, LGeoJson } from "@vue-leaflet/vue-leaflet";
-import { trails } from "../services/http-commons";
+import { LMap, LTileLayer, LGeoJson, LPolygon } from "@vue-leaflet/vue-leaflet";
+import trailService from "@/services/trail.service";
 //import { geoJSON } from "leaflet";
 
 export default {
@@ -25,16 +35,17 @@ export default {
   components: {
     LMap,
     LGeoJson,
+    LPolygon,
     LTileLayer,
   },
 
-  props: ['trails'],
+  props: ["trails"],
 
   data() {
     return {
       geojson: {
         type: "FeatureCollection",
-        features: []
+        features: [],
       },
       geojsonOptions: {
         style: {
@@ -44,41 +55,50 @@ export default {
         },
         wrapLatLng: true,
       },
+      zoom: 20,
+      polygon: {
+        latlngs: [],
+        color: "#5f761a",
+      },
     };
   },
 
   methods: {
     async getExtent() {
-      trails.get(
-        "/extent", {params: {ids: this.trails.map(t => t.id).join(',')}}
-      ).then(response => {
-        console.log(response.data.coordinates);
-        this.setBounds(response.data.coordinates[0].map(coord => {
-          // swap the coordinate pairs, since it is arranged in the other
-          // order on the backend
-          return [coord[1], coord[0]]
-        }));
-      })
+      const trailIds = this.trails.map((trail) => trail.id);
+      trailService.getTrailExtent(trailIds).then((response) => {
+        this.setBounds(
+          response.coordinates[0].map((coord) => {
+            // swap the coordinate pairs, since it is arranged in the other
+            // order on the backend
+            return [coord[1], coord[0]];
+          })
+        );
+      });
     },
 
-    async setBounds(bounds) {
+    setBounds(bounds) {
+      console.log(bounds);
+      this.polygon.latlngs = bounds;
       this.$refs.map.leafletObject.fitBounds(bounds);
     },
   },
-  
+
   watch: {
-    
-    trails: function(newVal) {
-      newVal.forEach(trail => {
-        trail.segments.forEach(segment => {
+    trails: function (newVal) {
+      newVal;
+      /*
+      newVal.forEach((trail) => {
+        trail.segments.forEach((segment) => {
           this.geojson.features.push({
-            geometry: segment.track
+            geometry: segment.track,
           });
         });
-      });  
+      });
+      */
       this.getExtent();
-    }
-  }
+    },
+  },
 };
 </script>
 
@@ -100,13 +120,14 @@ export default {
   margin: 0 auto 0 auto;
   width: 95%;
   height: 100%;
-  box-shadow: $shadow;
+  box-shadow: $shadowLight;
   border-radius: 4px;
 }
 
 #map {
-  max-width: 90%;
-  max-height: 90%;
+  max-width: 92%;
+  max-height: 93%;
+  border-radius: 4px;
   z-index: 0;
 }
 </style>

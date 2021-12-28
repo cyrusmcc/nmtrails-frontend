@@ -1,22 +1,35 @@
 <template>
-    <trail-map :trails="regionTrails"></trail-map>
+  <trail-map :trails="regionTrails"></trail-map>
 </template>
 
 <script>
-import TrailMap from "./TrailMap.vue"
-import { regions } from "../services/http-commons"
+import trailMap from "./TrailMap.vue";
+import regionService from "@/services/region.service";
 
 export default {
-    name: "FeaturedRegion",
-    components: { TrailMap },
+  name: "FeaturedRegion",
+  components: { trailMap },
 
-    data() {
-        return {
-            regionTrails : []
-        };
+  data() {
+    return {
+      regionTrails: [],
+    };
+  },
+
+  mounted() {
+      this.getFeaturedRegionTrails();
+  },
+
+  methods: {
+    getFeaturedRegionTrails() {
+      regionService.getFeaturedRegion().then((response) => {
+        regionService.getFeaturedRegionTrails(response.id).then((response) => {
+          this.regionTrails = response;
+        });
+      });
     },
 
-    methods : {
+    /*
         async getFeaturedRegion() {
             regions.get(
                 "/featured"
@@ -28,10 +41,7 @@ export default {
                 })
             });
         }
-    },
-
-    mounted() {
-        this.getFeaturedRegion();
-    }
-}
+        */
+  },
+};
 </script>

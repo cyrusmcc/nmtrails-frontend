@@ -47,15 +47,6 @@ class TrailService {
       }})
       .then((response) => response.data);
   }
-  /*
-  getFeaturedRegion() {
-    return api
-      .get(TRAIL_URL + "/featured")
-      .then((response) => {
-
-      })
-  }
-  */
 }
 
 export default new TrailService();
