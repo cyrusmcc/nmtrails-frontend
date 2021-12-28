@@ -10,6 +10,7 @@ const ForgotPassword = () => import("../views/ForgotPassword.vue");
 const ResetPassword = () => import("../views/ResetPassword.vue");
 const Settings = () => import("../views/Settings.vue");
 const ChangeEmailConfirm = () => import("../views/ChangeEmailConfirm.vue");
+const UserTrails = () => import("../views/UserTrails.vue");
 
 const routes = [
   {
@@ -78,6 +79,12 @@ const routes = [
     },
 
     component: ChangeEmailConfirm,
+  },
+  {
+    path: "/my-trails",
+    name: "UserTrails",
+
+    component: UserTrails,
   },
 ];
 

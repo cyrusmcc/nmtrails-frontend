@@ -1,7 +1,7 @@
 <template>
   <div class="container">
     <search-bar @search="onSearch"></search-bar>
-    <trail-list :trails="trailsArr" :hasSearched="hasSearched" />
+    <trail-list :trails="trailsArr" :rating="true"/>
     <button class="button" v-if="trailsArr && trailsArr.length >= 10" @click="loadMore">Load more</button>
   </div>
 </template>
@@ -16,7 +16,6 @@ export default {
   name: "Trails",
   data() {
     return {
-      hasSearched: false,
     };
   },
 
