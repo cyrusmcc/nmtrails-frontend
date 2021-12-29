@@ -2,23 +2,21 @@
   <div class="home">
     <featured-trails></featured-trails>
     <featured-region></featured-region>
-    <!--
     <popular-trails></popular-trails>
-    -->
   </div>
 </template>
 
 <script>
 import FeaturedTrails from "../components/FeaturedTrails.vue";
 import FeaturedRegion from "../components/FeaturedRegion.vue";
-//import PopularTrails from "../components/PopularTrails.vue";
+import PopularTrails from "../components/PopularTrails.vue";
 
 export default {
   name: "Home",
   components: {
     FeaturedTrails,
     FeaturedRegion,
-    //PopularTrails,
+    PopularTrails,
   },
   data() {
     return {};

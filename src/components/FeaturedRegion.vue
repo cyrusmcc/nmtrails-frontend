@@ -1,5 +1,5 @@
 <template>
-  <trail-map :trails="regionTrails"></trail-map>
+  <trail-map :trails="regionTrails" :regionName="regionName"></trail-map>
 </template>
 
 <script>
@@ -13,6 +13,7 @@ export default {
   data() {
     return {
       regionTrails: [],
+      regionName: "",
     };
   },
 
@@ -23,6 +24,7 @@ export default {
   methods: {
     getFeaturedRegionTrails() {
       regionService.getFeaturedRegion().then((response) => {
+        this.regionName = response.name;
         regionService.getFeaturedRegionTrails(response.id).then((response) => {
           this.regionTrails = response;
         });

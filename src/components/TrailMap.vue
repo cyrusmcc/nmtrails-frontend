@@ -33,6 +33,7 @@
         />
       </div>
     </l-map>
+    <span class="regionName" v-if="regionName">{{ regionName }}</span>
   </div>
 </template>
 
@@ -58,7 +59,7 @@ export default {
     LTileLayer,
   },
 
-  props: ["trails"],
+  props: ["trails", "regionName"],
 
   data() {
     return {
@@ -77,7 +78,7 @@ export default {
       zoom: 20,
       polygon: {
         latlngs: [],
-        color: "#004da2",
+        color: "#5eabff",
       },
       polylines: [],
       page: "Trail Page",
@@ -97,9 +98,9 @@ export default {
         );
       });
     },
-    setBounds(bounds) {
+    async setBounds(bounds) {
       this.polygon.latlngs = bounds;
-      this.$refs.map.leafletObject.fitBounds(bounds);
+      if (this.$refs.map) this.$refs.map.leafletObject.fitBounds(bounds);
     },
     toTrailPage(trailId) {
       this.$router.push("/t/" + trailId);
@@ -115,7 +116,7 @@ export default {
           });
           this.polylines.push({
             latlngs: latlngs,
-            color: "#004da2",
+            color: "#5eabff",
             trail: newVal[i],
           });
         }
@@ -130,11 +131,12 @@ export default {
 <style scoped lang="scss">
 .mapContainer {
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
   position: relative;
   width: 100%;
-  height: 12rem;
+  height: 15rem;
   margin-top: 30px;
 }
 
@@ -153,11 +155,19 @@ export default {
   max-width: 93%;
   max-height: 96%;
   border-radius: 4px;
+  margin: 5px 0;
   z-index: 0;
+}
+.regionName {
+  z-index: 1;
+  margin: 10px;
+  font-size: 1.2rem;
+  color: $primaryLight;
+  border-bottom: 2px solid $primaryLight;
+  text-shadow: 2px 8px 6px RGB(0 0 0 / 18%),
+    0px -5px 35px RGB(255 255 255 / 60%);
 }
 .polyline:hover {
   cursor: pointer;
-  stroke: #5eabff;
-  background-color: #5eabff;
 }
 </style>
