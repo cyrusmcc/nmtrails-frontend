@@ -20,13 +20,31 @@
         ref="gjElem"
       ></l-geo-json>
       <l-polygon :lat-lngs="polygon.latlngs" :color="polygon.color" />
+      <div
+        class="polyLineContainer"
+        v-for="(polyline, index) in polylines"
+        :key="index"
+      >
+        <l-polyline
+          @click="toTrailPage(polyline.trail.id)"
+          class="polyline"
+          :lat-lngs="polyline.latlngs"
+          :color="polyline.color"
+        />
+      </div>
     </l-map>
   </div>
 </template>
 
 <script>
 import "leaflet/dist/leaflet.css";
-import { LMap, LTileLayer, LGeoJson, LPolygon } from "@vue-leaflet/vue-leaflet";
+import {
+  LMap,
+  LTileLayer,
+  LGeoJson,
+  LPolygon,
+  LPolyline,
+} from "@vue-leaflet/vue-leaflet";
 import trailService from "@/services/trail.service";
 //import { geoJSON } from "leaflet";
 
@@ -36,6 +54,7 @@ export default {
     LMap,
     LGeoJson,
     LPolygon,
+    LPolyline,
     LTileLayer,
   },
 
@@ -58,13 +77,15 @@ export default {
       zoom: 20,
       polygon: {
         latlngs: [],
-        color: "#5f761a",
+        color: "#004da2",
       },
+      polylines: [],
+      page: "Trail Page",
     };
   },
 
   methods: {
-    async getExtent() {
+    getExtent() {
       const trailIds = this.trails.map((trail) => trail.id);
       trailService.getTrailExtent(trailIds).then((response) => {
         this.setBounds(
@@ -76,26 +97,30 @@ export default {
         );
       });
     },
-
     setBounds(bounds) {
-      console.log(bounds);
       this.polygon.latlngs = bounds;
       this.$refs.map.leafletObject.fitBounds(bounds);
+    },
+    toTrailPage(trailId) {
+      this.$router.push("/t/" + trailId);
     },
   },
 
   watch: {
     trails: function (newVal) {
-      newVal;
-      /*
-      newVal.forEach((trail) => {
-        trail.segments.forEach((segment) => {
-          this.geojson.features.push({
-            geometry: segment.track,
+      for (let i = 0; i < newVal.length; i++) {
+        for (let j = 0; j < newVal[i].segments.length; j++) {
+          let latlngs = newVal[i].segments[j].track.coordinates.map((coord) => {
+            return [coord[1], coord[0]];
           });
-        });
-      });
-      */
+          this.polylines.push({
+            latlngs: latlngs,
+            color: "#004da2",
+            trail: newVal[i],
+          });
+        }
+      }
+
       this.getExtent();
     },
   },
@@ -125,9 +150,14 @@ export default {
 }
 
 #map {
-  max-width: 92%;
-  max-height: 93%;
+  max-width: 93%;
+  max-height: 96%;
   border-radius: 4px;
   z-index: 0;
+}
+.polyline:hover {
+  cursor: pointer;
+  stroke: #5eabff;
+  background-color: #5eabff;
 }
 </style>

@@ -16,7 +16,7 @@
         </div>
         <div class="buttonContainer" v-if="currentUser">
           <button
-            class="button addButton"
+            class="button"
             v-if="!hasTrailInList"
             @click="addToHikeList()"
           >
@@ -155,6 +155,9 @@ export default {
   justify-content: space-between;
   align-items: center;
   margin-bottom: 5px;
+}
+.trailId {
+  max-width: 12rem;
 }
 .trailName {
   margin: 0;

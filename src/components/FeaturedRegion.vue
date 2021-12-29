@@ -28,20 +28,6 @@ export default {
         });
       });
     },
-
-    /*
-        async getFeaturedRegion() {
-            regions.get(
-                "/featured"
-            ).then(response => {
-                regions.get(
-                    `/${response.data.id}/trails`
-                ).then(response2 => {
-                    this.regionTrails = response2.data;
-                })
-            });
-        }
-        */
   },
 };
 </script>
