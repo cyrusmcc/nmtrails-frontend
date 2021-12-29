@@ -18,11 +18,6 @@
               :default-value="trail.rating"
             ></n-rate>
           </div>
-          <!--<ol id="trailTagList">
-            <li v-for="(tag, index) in trail.post.tags" :key="index">
-              <div class="trailTag">{{ tag.value }}</div>
-            </li>
-          </ol>-->
         </div>
       </li>
     </ol>
@@ -31,7 +26,7 @@
 
 <script>
 import { NRate } from "naive-ui";
-import trailService from "../services/trail.service";
+import trailService from "@/services/trail.service";
 
 export default {
   name: "PopularTrails",
@@ -97,7 +92,6 @@ h2 {
   margin-bottom: 10px;
   height: 150px;
   width: 95%;
-  //box-shadow: $shadowLight;
 }
 
 .container {

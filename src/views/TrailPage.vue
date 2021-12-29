@@ -16,7 +16,7 @@
         </div>
         <div class="buttonContainer" v-if="currentUser">
           <button
-            class="button addButton"
+            class="button"
             v-if="!hasTrailInList"
             @click="addToHikeList()"
           >
@@ -35,6 +35,7 @@
         <img :src="trail.imageUrl" class="trailImg" />
       </div>
     </div>
+    <trail-map :trails="trailArr"></trail-map>
     <observation-list :trail="trail"></observation-list>
   </div>
 </template>
@@ -43,12 +44,13 @@
 import trailService from "@/services/trail.service";
 import userService from "@/services/user.service";
 import ObservationList from "@/components/ObservationList.vue";
+import trailMap from "@/components/TrailMap.vue";
 
 import { NRate } from "naive-ui";
 
 export default {
   name: "TrailPage",
-  components: { ObservationList, NRate },
+  components: { ObservationList, NRate, trailMap },
 
   data() {
     return {
@@ -61,6 +63,11 @@ export default {
     currentUser() {
       return this.$store.state.auth.user;
     },
+    trailArr() {
+      let trailArr = [];
+      trailArr.push(this.trail);
+      return trailArr;
+    }
   },
   mounted() {
     const getTrails = async () => {
@@ -148,6 +155,9 @@ export default {
   justify-content: space-between;
   align-items: center;
   margin-bottom: 5px;
+}
+.trailId {
+  max-width: 12rem;
 }
 .trailName {
   margin: 0;

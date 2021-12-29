@@ -148,12 +148,11 @@ th {
 .button {
     background-color: $primaryDark;
     color: $primaryLight;
-    border-radius: 10px;
+    border-radius: 20px;
     font-size: 1rem;
     border: thin solid $primaryDark;
     line-height: 2rem;
-    margin-bottom: 20px;
-    padding: 0 3px 0 3px;
+    padding: 0 10px;
     width: fit-content;
     cursor: pointer;
 }
