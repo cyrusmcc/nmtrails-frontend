@@ -15,7 +15,7 @@
               color="#4fb233"
               allow-half
               readonly
-              :default-value="trail.rating"
+              :value="trail.avgRating"
             ></n-rate>
           </div>
         </div>
@@ -48,7 +48,7 @@ export default {
   mounted() {
     if (this.popularTrails.length === 0) {
       const trails = async () => {
-        const arr = await trailService.getTrails(true);
+        const arr = await trailService.getPopularTrails();
         for (let i = 0; i < arr.length; i++) {
           this.popularTrails.push(arr[i]);
         }

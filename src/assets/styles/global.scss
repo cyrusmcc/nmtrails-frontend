@@ -173,17 +173,9 @@ th {
     box-shadow: $shadowLight;
 }
 
-.labelButton {
-    border: $highlightOne 1px solid;
-    color: $primaryDark;
-    border-radius: 4px;
-    padding: 5px;
-    cursor: pointer;
-}
-
 .removeButton {
     margin: 0;
-    padding: 0 4px;
+    padding: 0 10px;
     border: 2px solid $highlightThree;
     font-size: 0.9em;
     background: none;
@@ -239,5 +231,5 @@ th {
     border-radius: 4px;
     box-shadow: $shadowLight;
     margin: 10px;
-    min-height: 20rem;
+    height: fit-content;
 }

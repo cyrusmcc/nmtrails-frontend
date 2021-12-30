@@ -10,7 +10,7 @@
               readonly
               allow-half
               size="small"
-              :default-value="trail.rating"
+              :value="trail.avgRating"
             />
           </div>
         </div>

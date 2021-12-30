@@ -4,16 +4,16 @@
       <router-link class="navLink" to="/">Home</router-link>
       <router-link class="navLink" to="/trails">Trails</router-link>
       <div class="navLink" v-if="!currentUser">
-        <router-link to="/login" class="navLink">Login</router-link>
+        <router-link to="/login">Login</router-link>
       </div>
       <div class="navLink" v-if="currentUser">
-        <router-link to="/my-trails" class="navLink">My trails</router-link>
+        <router-link to="/my-trails">My trails</router-link>
       </div>
       <div class="navLink" v-if="currentUser">
-        <router-link to="/settings" class="navLink">Settings</router-link>
+        <router-link to="/settings">Settings</router-link>
       </div>
-      <div v-if="currentUser">
-        <a class="navLink" @click.prevent="logOut">Logout</a>
+      <div v-if="currentUser" class="navLink">
+        <a @click.prevent="logOut">Logout</a>
       </div>
     </nav-bar>
     <router-view id="routeView" />
@@ -68,7 +68,9 @@ export default {
   margin-top: 10px;
   font-size: 1.1rem;
 }
-
+.navLink:hover {
+  border-bottom: 2px solid $highlightTwo;
+}
 #app {
   height: 100%;
   width: 100%;

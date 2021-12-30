@@ -39,12 +39,13 @@ class UserService {
         return response.data;
       });
   }
-  addTrailToHikeList(userId, trailId, listType) {
+  addTrailToHikeList(userId, trailId, listType, userRating) {
     return api
       .post(USER_URL + "/add-trail-to-hike-list", {
         userId,
         trailId,
-        listType
+        listType,
+        userRating
       })
       .then((response) => {
         return response.data;

@@ -4,7 +4,7 @@
       <button
         class="listButton"
         id="toHikeButton"
-        @click="displayToHike"
+        @click="changeDisplay('To Hike')"
         :style="[
           currentList == 'To Hike'
             ? {
@@ -23,7 +23,7 @@
       </button>
       <button
         class="listButton"
-        @click="displayHiked"
+        @click="changeDisplay('Hiked')"
         :style="[
           currentList == 'Hiked'
             ? {
@@ -43,6 +43,7 @@
     </div>
     <trail-list
       :trails="trailsArr"
+      :userListType="currentList"
       :userOptions="true"
       @removeTrailFromUserList="removeTrailFromList"
       @addToUserHikedList="addToUserHikedList"
@@ -52,12 +53,12 @@
 
 <script>
 import userService from "@/services/user.service";
-import TrailList from "../components/TrailList.vue";
+import trailList from "../components/TrailList.vue";
 
 export default {
   name: "UserTrails",
   components: {
-    TrailList,
+    trailList,
   },
   data() {
     return {
@@ -75,30 +76,28 @@ export default {
   },
   mounted() {
     if (!this.currentUser) this.$router.push("/login");
-    else this.displayToHike();
+    else this.changeDisplay("To Hike");
   },
   methods: {
-    displayToHike() {
+    changeDisplay(listType) {
       const trails = async () => {
-        const arr = await userService.getUserTrailList(
-          this.currentUser.id,
-          "To Hike"
-        );
+        let arr = null;
+        if (listType == "Hiked") {
+          arr = await userService.getUserTrailList(
+            this.currentUser.id,
+            listType
+          );
+        } else {
+          arr = await userService.getUserTrailList(
+            this.currentUser.id,
+            listType
+          );
+        }
+
+        this.currentList = listType;
         this.userTrails = arr;
       };
       trails();
-      this.currentList = "To Hike";
-    },
-    displayHiked() {
-      const trails = async () => {
-        const arr = await userService.getUserTrailList(
-          this.currentUser.id,
-          "Hiked"
-        );
-        this.userTrails = arr;
-      };
-      trails();
-      this.currentList = "Hiked";
     },
     removeTrailFromList(trail) {
       const remove = async () => {
@@ -108,24 +107,25 @@ export default {
           this.currentList
         );
         if (this.currentList === "To Hike") {
-          this.displayToHike();
+          this.changeDisplay("To Hike");
         } else {
-          this.displayHiked();
+          this.changeDisplay("Hiked");
         }
       };
       remove();
     },
-    addToUserHikedList(trail) {
+    addToUserHikedList(trail, userRating) {
       const add = async () => {
         await userService.addTrailToHikeList(
           this.currentUser.id,
           trail.id,
-          "Hiked"
+          "Hiked",
+          userRating
         );
         if (this.currentList === "To Hike") {
-          this.displayToHike();
+          this.changeDisplay("To Hike");
         } else {
-          this.displayHiked();
+          this.changeDisplay("Hiked");
         }
       };
       add();
@@ -160,6 +160,7 @@ export default {
   border: none;
   color: $primaryDark;
   font-size: 1em;
+  cursor: pointer;
 }
 #toHikeButton {
   border-right: 1px solid $primaryDark;
