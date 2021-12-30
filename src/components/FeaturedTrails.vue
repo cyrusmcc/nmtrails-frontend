@@ -50,6 +50,7 @@ export default {
 .carouselContainer {
   position: relative;
   width: 100%;
+  height: 240px;
 }
 
 .carousel {
@@ -89,6 +90,8 @@ export default {
   z-index: 1;
   background-color: $primaryLight;
   border-radius: 4px;
+  border: 1px solid $outline;
+  box-shadow: $shadowLight;
 }
 
 .featuredTrailLabel {

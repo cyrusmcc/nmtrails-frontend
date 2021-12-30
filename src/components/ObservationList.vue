@@ -84,7 +84,7 @@ span {
   list-style: none;
   height: fit-content;
   margin: 0 auto 25px auto;
-  border: 1px solid #e4ebf8;
+  border: 1px solid $outline;
   border-radius: 10px;
   box-shadow: $shadowLight;
   overflow: hidden;
@@ -107,7 +107,7 @@ span {
   margin: 5px;
   align-items: center;
   justify-content: center;
-  border: 1px solid #e4ebf8;
+  border: 1px solid $outline;
   border-radius: 50%;
 }
 .logoContainer:hover {

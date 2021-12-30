@@ -7,6 +7,7 @@ $screen-lg: 1115px;
 $highlightOne: #004da2;
 $highlightTwo: #10820f;
 $highlightThree: #f37684;
+$outline: #e4ebf8;
 
 $shadow: 0 4px 8px 0 RGB(0 0 0/5%), 0 6px 20px 0 RGB(0 0 0/14%);
 $shadowLight: 0 4px 8px 0 RGB(0 0 0/3%), 0 6px 20px 0 RGB(0 0 0/2%);
@@ -177,10 +178,11 @@ th {
     margin: 0;
     padding: 0 10px;
     border: 2px solid $highlightThree;
+    font-family: inter, sans-serif;
     font-size: 0.9em;
-    background: none;
+    background: $highlightThree;
     border-radius: 20px;
-    color: $highlightThree;
+    color: $primaryLight;
     font-weight: bold;
     line-height: 1.8rem;
 }

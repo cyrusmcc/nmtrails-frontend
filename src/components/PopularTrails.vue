@@ -61,9 +61,9 @@ export default {
 
 <style scoped lang="scss">
 h2 {
-  font-size: 1.2em;
+  font-size: 1.4em;
   width: 95%;
-  margin: 30px 0 0 0;
+  margin: 30px 0 15px 0;
   padding: 0;
 }
 
@@ -75,13 +75,11 @@ h2 {
 }
 
 #popularTrailList {
+  @include flexCenter();
+  row-gap: 15px;
   width: 100%;
   padding: 0;
   margin-top: 0;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
 }
 
 #popularTrailList > li {
@@ -89,7 +87,8 @@ h2 {
   flex-direction: row;
   align-items: center;
   list-style-type: none;
-  margin-bottom: 10px;
+  border: 1px solid $outline;
+  border-radius: 4px;
   height: 150px;
   width: 95%;
 }
@@ -106,8 +105,10 @@ h2 {
   display: flex;
   align-items: center;
   justify-content: center;
-  height: 125px;
-  width: 125px;
+  height: 100%;
+  width: 200px;
+  border-radius: 4px 0 0 4px;
+  overflow: hidden;
 }
 
 .trailImg {
@@ -139,16 +140,6 @@ h2 {
 
 #trailTagList > li {
   list-style-type: none;
-}
-
-.trailTag {
-  height: fit-content;
-  width: fit-content;
-  background-color: #92af05;
-  padding: 1px 10px;
-  font-size: 0.8rem;
-  border-radius: 8px;
-  margin-top: 10px;
 }
 
 #trailName {

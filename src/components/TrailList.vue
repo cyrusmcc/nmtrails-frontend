@@ -35,7 +35,9 @@
                 :default-value="value"
                 ref="rate"
               />
-              <button class="button" @click="addToUserHikedList(trail, value)">Add to finished hikes</button>
+              <button class="button" @click="addToUserHikedList(trail, value)">
+                Add to finished hikes
+              </button>
             </div>
           </modal>
           <div class="removeButtonContainer" @click="removeFromUserList(trail)">
@@ -45,7 +47,11 @@
               class="removeTrailIcon"
             />
           </div>
-          <button class="button" @click="toggleModal" v-if="userListType == 'To Hike'">
+          <button
+            class="button"
+            @click="toggleModal"
+            v-if="userListType == 'To Hike'"
+          >
             Add to my finished hikes
           </button>
         </div>
@@ -158,12 +164,13 @@ export default {
   display: flex;
   flex-direction: row;
   column-gap: 10px;
-  padding: 10px;
+  padding: 10px 0;
   width: inherit;
   box-shadow: $shadowLight;
   border-radius: 0 0 4px 4px;
   border: 1px solid #e4ebf8;
   border-top: 0;
+  box-sizing: border-box;
 }
 .removeButtonContainer {
   @include flexCenter();
@@ -172,6 +179,7 @@ export default {
   width: 2.5rem;
   height: 2.5rem;
   padding: 2px;
+  margin-left: 10px;
   cursor: pointer;
 }
 .removeTrailIcon {
