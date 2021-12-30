@@ -15,7 +15,7 @@
                 color="#4fb233"
                 readonly
                 allow-half
-                :default-value="trail.rating"
+                :value="trail.avgRating"
               />
             </div>
             <ol class="trailTagList">
@@ -26,6 +26,18 @@
           </div>
         </div>
         <div class="userTrailOptions" v-if="userOptions && trails.length > 0">
+          <modal v-if="showModal" @closeModal="toggleModal">
+            <div class="rateModalContent">
+              <span>How would you rate this trail?</span>
+              <NRate
+                color="#4fb233"
+                @click="onUpdate()"
+                :default-value="value"
+                ref="rate"
+              />
+              <button class="button" @click="addToUserHikedList(trail, value)">Add to finished hikes</button>
+            </div>
+          </modal>
           <div class="removeButtonContainer" @click="removeFromUserList(trail)">
             <img
               src="@/assets/imgs/trashcan.svg"
@@ -33,7 +45,7 @@
               class="removeTrailIcon"
             />
           </div>
-          <button class="button addButton" @click="addToUserHikedList(trail)">
+          <button class="button" @click="toggleModal" v-if="userListType == 'To Hike'">
             Add to my finished hikes
           </button>
         </div>
@@ -44,19 +56,34 @@
 
 <script>
 import { NRate } from "naive-ui";
+import modal from "./Modal.vue";
 
 export default {
   name: "TrailList",
   components: {
     NRate,
+    modal,
   },
-  props: ["trails", "rating", "userOptions"],
+  data() {
+    return {
+      showModal: false,
+      value: 0,
+    };
+  },
+  props: ["trails", "rating", "userOptions", "userListType"],
   methods: {
+    toggleModal() {
+      this.showModal = !this.showModal;
+    },
+    onUpdate() {
+      this.value = this.$refs.rate.mergedValue;
+    },
     removeFromUserList(trail) {
       this.$emit("removeTrailFromUserList", trail);
     },
-    addToUserHikedList(trail) {
-      this.$emit("addToUserHikedList", trail);
+    addToUserHikedList(trail, value) {
+      this.$emit("addToUserHikedList", trail, value);
+      this.showModal = false;
     },
   },
 };
@@ -145,10 +172,18 @@ export default {
   width: 2.5rem;
   height: 2.5rem;
   padding: 2px;
+  cursor: pointer;
 }
 .removeTrailIcon {
   height: 1.8rem;
   width: 1.8rem;
   margin-right: 1px;
+}
+.rateModalContent {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 25px;
+  row-gap: 20px;
 }
 </style>

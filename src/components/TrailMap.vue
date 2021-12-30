@@ -166,6 +166,8 @@ export default {
   border-bottom: 2px solid $primaryLight;
   text-shadow: 2px 8px 6px RGB(0 0 0 / 18%),
     0px -5px 35px RGB(255 255 255 / 60%);
+  text-align: center;
+  width: 85%;
 }
 .polyline:hover {
   cursor: pointer;

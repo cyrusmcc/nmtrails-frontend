@@ -271,28 +271,6 @@ export default {
             error.toString();
         }
       );
-
-
-      /*
-      this.$store.dispatch("settings/changeEmailRequest", values).then(
-        (data) => {
-          this.modalType = "changeEmailSuccess";
-          this.message = data.message;
-          this.successful = true;
-          this.loading = false;
-          this.$router.push("/settings");
-        },
-        (error) => {
-          this.loading = false;
-          this.message =
-            (error.response &&
-              error.response.data &&
-              error.response.data.message) ||
-            error.message ||
-            error.toString();
-        }
-      );
-      */
     },
     handlePasswordChange(values) {
       this.message = "";

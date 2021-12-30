@@ -12,8 +12,8 @@
       <div class="navLink" v-if="currentUser">
         <router-link to="/settings" class="navLink">Settings</router-link>
       </div>
-      <div v-if="currentUser">
-        <a class="navLink" @click.prevent="logOut">Logout</a>
+      <div v-if="currentUser" class="navLink">
+        <a @click.prevent="logOut">Logout</a>
       </div>
     </nav-bar>
     <router-view id="routeView" />

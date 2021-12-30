@@ -81,5 +81,6 @@ export default {
 #featuredTrailName {
   font-style: italic;
   text-align: center;
+  width: 85%;
 }
 </style>
