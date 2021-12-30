@@ -2,18 +2,24 @@
   <div class="carouselContainer">
     <div class="shadow"></div>
     <n-carousel class="carousel" show-arrow>
-      <div id="featuredTrail">
-        <div id="featuredTrailText">
-          <span id="featuredTrailLabel">Featured Trail</span>
-          <span id="featuredTrailName">trail name</span>
+      <div class="trail" v-for="(trail, index) in featuredTrails" :key="index">
+        <div class="featuredTrailText">
+          <span class="featuredTrailLabel">Featured Trail</span>
+          <router-link
+            class="featuredTrailName"
+            :to="'/t/' + trail.id"
+            @click="click(trails.imageUrl)"
+            >{{ trail.name }}</router-link
+          >
         </div>
-        <img class="carousel-img" src="../assets/imgs/hiking.jpg" />
+        <img class="carousel-img" :src="trail.imageUrl" />
       </div>
     </n-carousel>
   </div>
 </template>
 
 <script>
+import trailService from "@/services/trail.service";
 import { NCarousel } from "naive-ui";
 
 export default {
@@ -22,18 +28,31 @@ export default {
     NCarousel,
   },
   data() {
-    return {};
+    return {
+      featuredTrails: [],
+    };
+  },
+  mounted() {
+    const trails = async () => {
+      const arr = await trailService.getFeaturedTrails();
+      this.featuredTrails = arr;
+    };
+    trails();
+  },
+  methods: {
+    click(url) {
+      console.log(url);
+    },
   },
 };
 </script>
-
 <style lang="scss" scoped>
 .carouselContainer {
   position: relative;
+  width: 100%;
 }
 
 .carousel {
-  line-height: 0;
   display: flex;
   flex-direction: column;
   justify-content: flex-end;
@@ -56,31 +75,37 @@ export default {
   pointer-events: none;
 }
 
-#featuredTrailText {
+.featuredTrailText {
   display: flex;
   flex-direction: column;
-  align-text: center;
+  justify-content: flex-start;
+  align-items: center;
   position: absolute;
   bottom: 0;
-  z-index: 1;
-  line-height: 1;
-  background-color: $primaryLight;
-  box-shadow: $shadow;
+  max-height: 3.2rem;
+  width: 8rem;
   margin: 0 0 35px 20px;
   padding: 5px;
+  z-index: 1;
+  background-color: $primaryLight;
   border-radius: 4px;
-  row-gap: 5px;
 }
 
-#featuredTrailLabel {
+.featuredTrailLabel {
   font-size: 1rem;
   font-weight: bold;
   text-align: center;
 }
 
-#featuredTrailName {
+.featuredTrailName {
   font-style: italic;
   text-align: center;
-  width: 85%;
+  -webkit-line-clamp: 1;
+  display: block;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  width: 100%;
+  pointer-events: all;
+  cursor: pointer;
 }
 </style>

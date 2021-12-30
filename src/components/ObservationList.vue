@@ -2,6 +2,9 @@
   <div class="observationContainer">
     <div class="title"><h3>Recent Nature Sightings</h3></div>
     <div class="listContainer">
+      <span v-if="!observations || observations.length == 0"
+        >No spottings found</span
+      >
       <li
         class="observation"
         v-for="(observation, index) in observations"
@@ -16,9 +19,7 @@
           />
         </a>
         <div class="observationInfoCard">
-          <div class="observationSpecies">{{
-            observation.species_guess
-          }}</div>
+          <div class="observationSpecies">{{ observation.species_guess }}</div>
           <div class="observationInfo">
             <div class="observationDate">
               Observed on {{ observation.observed_on }}
@@ -74,8 +75,6 @@ span {
 }
 .title {
   width: 90%;
-  display: flex;
-  align-items: flex-start;
 }
 .observation {
   @include flexCenter();

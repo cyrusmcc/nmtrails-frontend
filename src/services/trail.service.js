@@ -25,11 +25,19 @@ class TrailService {
     let page = 0;
     let pageSize = 5;
     return api
-      .get(TRAIL_URL + "/popular-trails", {
+      .get(TRAIL_URL + "/popular", {
         params: {
           page,
           pageSize,
         },
+      })
+      .then((response) => {
+        return response.data;
+      });
+  }
+  getFeaturedTrails() {
+    return api
+      .get(TRAIL_URL + "/featured", {
       })
       .then((response) => {
         return response.data;
