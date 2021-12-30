@@ -21,6 +21,20 @@ class TrailService {
         return response.data;
       });
   }
+  getPopularTrails() {
+    let page = 0;
+    let pageSize = 5;
+    return api
+      .get(TRAIL_URL + "/popular-trails", {
+        params: {
+          page,
+          pageSize,
+        },
+      })
+      .then((response) => {
+        return response.data;
+      });
+  }
   getTrailsByName(name) {
     return api
       .get(TRAIL_URL + "/", {
@@ -42,9 +56,11 @@ class TrailService {
   }
   getTrailExtent(ids) {
     return api
-      .get(TRAIL_URL + "/extent", { params : {
-        "ids": ids.join(',')
-      }})
+      .get(TRAIL_URL + "/extent", {
+        params: {
+          "ids": ids.join(',')
+        }
+      })
       .then((response) => response.data);
   }
 }
