@@ -67,7 +67,7 @@ export default {
       let trailArr = [];
       trailArr.push(this.trail);
       return trailArr;
-    }
+    },
   },
   mounted() {
     const getTrails = async () => {
@@ -157,6 +157,9 @@ export default {
   margin-bottom: 5px;
 }
 .trailId {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
   max-width: 12rem;
 }
 .trailName {

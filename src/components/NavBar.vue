@@ -122,4 +122,11 @@ export default {
   color: $primaryDark;
   font-family: $paytone;
 }
+
+@include screen-md() {
+    .navBarContainer {
+    width: 80%;
+    max-width: 50rem;
+  }
+}
 </style>

@@ -105,4 +105,16 @@ export default {
   pointer-events: all;
   cursor: pointer;
 }
+
+@include screen-md() {
+  .carouselContainer{
+    height: 300px;
+  }
+  .shadow {
+    height: 300px;
+  }
+  .carousel-img {
+    height: 300px;
+  }
+}
 </style>

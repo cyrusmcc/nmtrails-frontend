@@ -127,25 +127,15 @@ h2 {
   row-gap: 3px;
 }
 
-#trailTagList {
-  width: 95%;
-  padding: 0;
-  display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
-  justify-content: center;
-  align-content: flex-start;
-  column-gap: 5px;
-}
-
-#trailTagList > li {
-  list-style-type: none;
-}
-
 #trailName {
   text-align: center;
   font-style: italic;
   color: $primaryLight;
   font-style: italic;
+}
+@include screen-md() {
+#popularTrailList > li {
+  width: 100%;
+}
 }
 </style>

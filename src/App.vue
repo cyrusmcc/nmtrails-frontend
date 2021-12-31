@@ -80,4 +80,20 @@ export default {
   padding-top: 45px;
   overflow-y: auto;
 }
+
+@include screen-md() {
+  #app {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 80%;
+    max-width: 50rem;
+  }
+  .container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+  }
+}
 </style>

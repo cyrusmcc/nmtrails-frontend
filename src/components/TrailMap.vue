@@ -121,7 +121,7 @@ export default {
   position: relative;
   width: 95%;
   height: 15rem;
-  margin-top: 30px;
+  margin-top: 20px;
   border: 1px solid $outline;
   border-radius: 10px;
   box-shadow: $shadowLight;
@@ -158,5 +158,11 @@ export default {
 }
 .polyline:hover {
   cursor: pointer;
+}
+@include screen-md() {
+  .mapContainer {
+    height: 20rem;
+    width: 100%;
+  }
 }
 </style>
