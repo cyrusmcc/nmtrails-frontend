@@ -91,7 +91,7 @@ export default {
           this.message = data.message;
           this.successful = true;
           this.loading = false;
-          this.$router.push("/login");
+          this.$router.push("/login/register-success");
         },
         (error) => {
           this.loading = false;

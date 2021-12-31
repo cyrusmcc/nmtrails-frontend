@@ -25,7 +25,7 @@
             </ol>
           </div>
         </div>
-        <div class="userTrailOptions" v-if="userOptions && trails.length > 0">
+        <div class="userTrailOptions" v-if="userOptions && trails.length > 0 && userListType =='To Hike'">
           <modal v-if="showModal" @closeModal="toggleModal">
             <div class="rateModalContent">
               <span>How would you rate this trail?</span>
@@ -171,6 +171,7 @@ export default {
   border: 1px solid #e4ebf8;
   border-top: 0;
   box-sizing: border-box;
+  margin-bottom: 20px;
 }
 .removeButtonContainer {
   @include flexCenter();

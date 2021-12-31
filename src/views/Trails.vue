@@ -80,6 +80,6 @@ export default {
   overflow-y: scroll;
 }
 .button {
-  margin-top: 20px;
+  margin: 20px 0 10px 0;
 }
 </style>

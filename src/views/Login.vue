@@ -50,6 +50,13 @@
           >
             Email changed successfully
           </div>
+          <div
+            v-if="$route.params.flashMessage == 'register-success'"
+            class="alert"
+            role="alert"
+          >
+            Account registered successfully
+          </div>
         </div>
       </Form>
     </div>

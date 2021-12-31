@@ -1,14 +1,13 @@
 <template>
   <div class="carouselContainer">
     <div class="shadow"></div>
-    <n-carousel class="carousel" show-arrow>
+    <n-carousel class="carousel" show-arrow autoplay>
       <div class="trail" v-for="(trail, index) in featuredTrails" :key="index">
         <div class="featuredTrailText">
           <span class="featuredTrailLabel">Featured Trail</span>
           <router-link
             class="featuredTrailName"
             :to="'/t/' + trail.id"
-            @click="click(trails.imageUrl)"
             >{{ trail.name }}</router-link
           >
         </div>
@@ -38,11 +37,6 @@ export default {
       this.featuredTrails = arr;
     };
     trails();
-  },
-  methods: {
-    click(url) {
-      console.log(url);
-    },
   },
 };
 </script>
@@ -86,7 +80,7 @@ export default {
   max-height: 3.2rem;
   width: 8rem;
   margin: 0 0 35px 20px;
-  padding: 5px;
+  padding: 3px;
   z-index: 1;
   background-color: $primaryLight;
   border-radius: 4px;

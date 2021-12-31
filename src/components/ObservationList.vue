@@ -69,7 +69,7 @@ span {
   display: flex;
   flex-direction: column;
   align-items: center;
-  height: 30rem;
+  height: 40rem;
   width: 100%;
   color: $primaryDark;
 }

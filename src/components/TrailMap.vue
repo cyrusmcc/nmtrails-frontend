@@ -37,7 +37,6 @@ import {
   LPolyline,
 } from "@vue-leaflet/vue-leaflet";
 import trailService from "@/services/trail.service";
-//import { geoJSON } from "leaflet";
 
 export default {
   name: "TrailMap",
