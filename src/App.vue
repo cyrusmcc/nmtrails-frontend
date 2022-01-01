@@ -77,6 +77,9 @@ export default {
 }
 
 #routeView {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
   padding-top: 45px;
   overflow-y: auto;
 }

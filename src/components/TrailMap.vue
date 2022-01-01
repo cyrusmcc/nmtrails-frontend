@@ -4,8 +4,7 @@
       id="map"
       :options="{ attributionControl: false }"
       :zoom="zoom"
-      ref="map"
-      v-if="trailsArr"
+      :bounds="bounds"
     >
       <l-tile-layer
         url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
@@ -17,11 +16,16 @@
         :key="index"
       >
         <l-polyline
-          @click="toTrailPage(polyline.trail.id)"
           class="polyline"
           :lat-lngs="polyline.latlngs"
           :color="polyline.color"
-        />
+        >
+          <l-popup>
+            <div class="popupContent" @click="toTrailPage(polyline.trail.id)">
+              {{ polyline.trail.name }}
+            </div></l-popup
+          >
+        </l-polyline>
       </div>
     </l-map>
     <span class="regionName" v-if="regionName">{{ regionName }}</span>
@@ -35,6 +39,7 @@ import {
   LTileLayer,
   LPolygon,
   LPolyline,
+  LPopup,
 } from "@vue-leaflet/vue-leaflet";
 import trailService from "@/services/trail.service";
 
@@ -45,6 +50,7 @@ export default {
     LPolyline,
     LTileLayer,
     LMap,
+    LPopup,
   },
 
   props: ["trails", "regionName"],
@@ -57,14 +63,12 @@ export default {
         color: "#5eabff",
       },
       polylines: [],
-      page: "Trail Page",
+      bounds: [],
     };
   },
 
-  computed: {
-    trailsArr() {
-      return this.trails;
-    },
+  mounted() {
+    this.getExtent();
   },
 
   methods: {
@@ -84,30 +88,29 @@ export default {
     },
     setBounds(bounds) {
       this.polygon.latlngs = bounds;
-      this.$refs.map.leafletObject.fitBounds(bounds);
+      this.bounds = bounds;
+      console.log(bounds);
     },
     toTrailPage(trailId) {
       this.$router.push("/t/" + trailId);
     },
   },
-  updated() {
-    this.$nextTick(function () {
-      for (let i = 0; i < this.trailsArr.length; i++) {
-        for (let j = 0; j < this.trailsArr[i].segments.length; j++) {
-          let latlngs = this.trailsArr[i].segments[j].track.coordinates.map(
-            (coord) => {
-              return [coord[1], coord[0]];
-            }
-          );
+  watch: {
+    trails: function (newVal) {
+      for (let i = 0; i < newVal.length; i++) {
+        for (let j = 0; j < newVal[i].segments.length; j++) {
+          let latlngs = newVal[i].segments[j].track.coordinates.map((coord) => {
+            return [coord[1], coord[0]];
+          });
           this.polylines.push({
             latlngs: latlngs,
             color: "#5eabff",
-            trail: this.trailsArr[i],
+            trail: newVal[i],
           });
         }
       }
       this.getExtent();
-    });
+    },
   },
 };
 </script>
@@ -158,6 +161,10 @@ export default {
 }
 .polyline:hover {
   cursor: pointer;
+}
+.popupContent {
+  cursor: pointer;
+  color: $highlightOne;
 }
 @include screen-md() {
   .mapContainer {

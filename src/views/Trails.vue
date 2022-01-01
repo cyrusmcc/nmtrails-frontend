@@ -63,13 +63,6 @@ export default {
       this.getInitialTrails();
     }
   },
-  watch: {
-    $route() {
-      if (!window.location.search) {
-        this.getInitialTrails();
-      }
-    },
-  },
 };
 </script>
 

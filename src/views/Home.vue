@@ -37,7 +37,7 @@ export default {
 
 @include screen-md() {
   .home {
-    overflow: visible;
+    overflow-x:hidden;
   }
 }
 </style>
