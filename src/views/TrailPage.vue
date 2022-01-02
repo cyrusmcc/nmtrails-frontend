@@ -79,11 +79,13 @@ export default {
   },
   methods: {
     hasTrailInToHikeList() {
-      userService
-        .hasTrailInToHikeList(this.currentUser.id, this.trail.id)
-        .then((res) => {
-          this.hasTrailInList = res;
-        });
+      if (this.currentUser) {
+        userService
+          .hasTrailInToHikeList(this.currentUser.id, this.trail.id)
+          .then((res) => {
+            this.hasTrailInList = res;
+          });
+      }
     },
     addToHikeList() {
       userService

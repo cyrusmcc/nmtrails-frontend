@@ -89,7 +89,6 @@ export default {
     setBounds(bounds) {
       this.polygon.latlngs = bounds;
       this.bounds = bounds;
-      console.log(bounds);
     },
     toTrailPage(trailId) {
       this.$router.push("/t/" + trailId);
