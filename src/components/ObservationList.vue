@@ -93,7 +93,7 @@ span {
   height: 8rem;
   width: 100%;
   object-fit: cover;
-  opacity: 80%;
+  opacity: 0.8;
 }
 .logoContainer {
   position: absolute;
