@@ -125,6 +125,7 @@ export default {
 .container {
   @include flexCenter();
   text-align: center;
+  overflow: hidden;
 }
 .trailImgContainer {
   @include flexCenter();

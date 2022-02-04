@@ -66,7 +66,9 @@ h2 {
   margin: 30px 0 15px 0;
   padding: 0;
 }
-
+li {
+  box-sizing: border-box;
+}
 .listContainer {
   display: flex;
   flex-direction: column;
