@@ -69,7 +69,6 @@ span {
   display: flex;
   flex-direction: column;
   align-items: center;
-  height: 40rem;
   width: 100%;
   color: $primaryDark;
 }
@@ -122,7 +121,6 @@ span {
   list-style: none;
   padding: 0;
   width: 100%;
-  overflow-y: scroll;
 }
 .observationInfoCard {
   display: flex;

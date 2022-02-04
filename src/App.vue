@@ -81,7 +81,6 @@ export default {
   flex-direction: column;
   justify-content: flex-start;
   padding-top: 45px;
-  overflow-y: auto;
 }
 
 @include screen-md() {
